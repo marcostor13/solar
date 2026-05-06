@@ -1,0 +1,174 @@
+@if (!showForm() && !isSubmitted()) {
+<!-- Landing Page -->
+<div
+  class="bg-black h-screen flex flex-col items-center justify-between px-4 py-4 md:py-6 overflow-hidden"
+>
+  <div class="flex-1 flex flex-col items-center justify-evenly w-full py-4">
+    <!-- Logo 1 -->
+    <div class="flex justify-center w-full flex-col items-center">
+      <img
+        src="/chandon/logo1.png"
+        alt="Moët & Chandon Logo"
+        class="logo-item w-full object-contain w-1/2"
+      />
+
+      <!-- Logo 2 -->
+      <img
+        src="/chandon/logo2.png"
+        alt="Casa Garbo Logo"
+        width="100"
+        class="object-contain mt-4"
+      />
+    </div>
+
+    <!-- Logo 3 -->
+    <img
+      src="/chandon/logo3.png"
+      alt="Fiesta Moet Chandon"
+      class="logo-item object-contain w-1/2"
+    />
+
+    <!-- Logo 5 -->
+    <img
+      src="/chandon/logo5.png"
+      alt="Event Details"
+      class="logo-item object-contain w-3/4"
+    />
+  </div>
+
+  <!-- Botón Registrate aquí -->
+  <button
+    (click)="goToForm()"
+    class="mb-10 bg-transparent button1 px-4 py-2 border-2 border-white uppercase text-base sm:text-lg md:text-xl button-style transition-all duration-300 hover:bg-white hover:text-black focus:outline-none mb-2 md:mb-4 flex-shrink-0"
+  >
+    Regístrate aquí
+  </button>
+</div>
+} @if (showForm() && !isSubmitted()) {
+<!-- Vista de Formulario -->
+<div
+  class="bg-black h-screen flex flex-col items-center px-4 overflow-y-auto py-10 px-8"
+>
+  <div class="w-full max-w-lg flex-1 flex flex-col">
+    <!-- Formulario -->
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submitForm()"
+      class="registration-form flex-1 flex flex-col justify-start overflow-y-auto"
+    >
+      <div class="form-field">
+        <label class="form-label">NOMBRE Y APELLIDO:</label>
+        <input
+          type="text"
+          formControlName="name"
+          placeholder=" "
+          class="form-input"
+        />
+        @if (form.controls['name'].invalid && form.controls['name'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">CORREO:</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder=" "
+          class="form-input"
+        />
+        @if (form.controls['email'].invalid && form.controls['email'].touched) {
+        <span class="error">Email inválido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">CELULAR:</label>
+        <input
+          type="tel"
+          formControlName="phone"
+          placeholder=" "
+          class="form-input"
+        />
+        @if (form.controls['phone'].invalid && form.controls['phone'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">FECHA DE NACIMIENTO:</label>
+        <input type="date" formControlName="dateOfBirth" class="form-input" />
+        @if (form.controls['dateOfBirth'].invalid &&
+        form.controls['dateOfBirth'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">DIRECCION:</label>
+        <input
+          type="text"
+          formControlName="address"
+          placeholder=" "
+          class="form-input"
+        />
+        @if (form.controls['address'].invalid &&
+        form.controls['address'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">REFERIDO POR:</label>
+        <input
+          type="text"
+          formControlName="favoriteDrink"
+          placeholder=" "
+          class="form-input"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+        class="submit-button"
+      >
+        @if (isLoading()) { Enviando... } @else { Enviar }
+      </button>
+    </form>
+
+    <!-- Logo 4 debajo del formulario -->
+    <div class="flex justify-center">
+      <img
+        src="/chandon/logo4.png"
+        alt="Casa Garbo Building"
+        class="w-full w-20 object-contain"
+      />
+    </div>
+  </div>
+</div>
+} @if (isSubmitted()) {
+<!-- Vista de Confirmación -->
+<div
+  class="bg-black h-screen flex flex-col items-center justify-between px-4 py-4 md:py-6 overflow-hidden"
+>
+  <div
+    class="w-full max-w-lg text-center flex-1 flex flex-col justify-evenly py-4"
+  >
+    <!-- Mensaje de confirmación -->
+    <p class="text-white text-base sm:text-lg md:text-xl leading-relaxed px-4">
+      Gracias por tu registro, cuando se acepte tu solicitud te enviaremos un
+      correo de confirmación.
+    </p>
+
+    <!-- Logo 4 -->
+    <div class="flex justify-center">
+      <img
+        src="/chandon/logo4.png"
+        alt="Casa Garbo Building"
+        class="w-full w-20 object-contain"
+      />
+    </div>
+  </div>
+</div>
+}

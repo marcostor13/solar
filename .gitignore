@@ -40,3 +40,16 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Secrets
+.env
+.env.*
+env.txt
+
+# Large files / Design files
+*.ai
+*.psd
+*.zip
+*.mp3
+*.mp4
+*.mov

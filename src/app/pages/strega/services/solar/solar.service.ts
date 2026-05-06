@@ -1,0 +1,18 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ISolarForm } from '../../interfaces/solar-form.interface';
+import { environment } from '../../../../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SolarService {
+
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = environment.api.solarUrl;
+
+  saveSolar(data: ISolarForm): Observable<unknown> {
+    return this.http.post(this.apiUrl, data);
+  }
+}

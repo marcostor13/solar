@@ -1,0 +1,259 @@
+<div class="landing-container">
+  <!-- Botón de audio -->
+  <div class="audio-control absolute top-4 right-4 z-20">
+    <button
+      (click)="toggleAudio()"
+      class="audio-button"
+      [attr.aria-label]="isPlaying() ? 'Pausar audio' : 'Reproducir audio'"
+    >
+      @if (isPlaying()) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="audio-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+        />
+      </svg>
+      } @else {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="audio-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z"
+        />
+      </svg>
+      }
+      <span class="song-name">{{ songName }}</span>
+    </button>
+  </div>
+
+  <!-- Video de fondo -->
+  <video
+    #videoElement
+    class="background-video"
+    autoplay
+    loop
+    muted
+    playsinline
+    webkit-playsinline
+    [poster]="'/elephant-3-aniversario/FONDO FLYER.png'"
+  >
+    <source src="/elephant-3-aniversario/VIDEO FONDO.mp4" type="video/mp4" />
+    Tu navegador no soporta videos HTML5.
+  </video>
+
+  <!-- Overlay con opacidad -->
+  <div class="video-overlay"></div>
+
+  <!-- Audio element -->
+  <audio
+    #audioElement
+    [src]="'/garage/es_un_secreto.mp3'"
+    loop
+    preload="auto"
+  ></audio>
+
+  <!-- Contenido -->
+  <div class="content-wrapper">
+    <!-- Título ELEPHANT -->
+    <div class="title-section">
+      <img
+        src="/elephant-3-aniversario/ELEPHANT.png"
+        alt="ELEPHANT"
+        class="elephant-title"
+      />
+    </div>
+
+    <!-- 3ER y ANIVERSARIO -->
+    <div class="anniversary-section relative">
+      <img
+        src="/elephant-3-aniversario/3ER.png"
+        alt="3ER"
+        class="ter-image absolute"
+      />
+      <img
+        src="/elephant-3-aniversario/ANIVERSARIO.png"
+        alt="ANIVERSARIO"
+        class="aniversario-image"
+      />
+    </div>
+
+    <!-- ICONO ELEPHANT, 13 NOV, JUE en línea -->
+    <div class="date-section">
+      <img
+        src="/elephant-3-aniversario/ICONO ELEPHANT.png"
+        alt="Icono Elephant"
+        class="icono-image"
+      />
+      <img
+        src="/elephant-3-aniversario/13 NOV.png"
+        alt="13 NOV"
+        class="date-image"
+      />
+      <img src="/elephant-3-aniversario/JUE.png" alt="JUE" class="jue-image" />
+    </div>
+
+    <!-- Logos de DJs en línea -->
+    <div class="djs-section">
+      <img
+        src="/elephant-3-aniversario/MALUKI PERCUSIÓN.png"
+        alt="MALUKI PERCUSIÓN"
+        class="dj-logo"
+      />
+      <img
+        src="/elephant-3-aniversario/DJ YESSI.png"
+        alt="DJ YESSI"
+        class="dj-logo"
+      />
+      <img
+        src="/elephant-3-aniversario/JUANMA.png"
+        alt="JUANMA"
+        class="dj-logo"
+      />
+      <img
+        src="/elephant-3-aniversario/DIEGO YAMS.png"
+        alt="DIEGO YAMS"
+        class="dj-logo"
+      />
+    </div>
+
+    <!-- Botón de Registro -->
+    <div class="button-section">
+      <button (click)="openForm()" class="register-button">
+        REGÍSTRATE AQUÍ
+      </button>
+    </div>
+  </div>
+</div>
+
+@if (completed()) {
+<!-- Vista de Confirmación -->
+<div
+  class="bg-black h-screen w-screen flex justify-center items-center fixed top-0 left-0 z-50"
+>
+  <p class="text-white text-2xl text-center raleway mt-10 p-5">
+    Ya estás registrad&#64; en la lista para Elephant, 3er Aniversario.<br />Te
+    esperamos este jueves 13 a las 8pm en nuestro cocktail privado, solo para
+    invitados.<br />
+    <br />Gin beefeater & Makis.
+  </p>
+</div>
+}
+
+<!-- Formulario Modal -->
+@if (showForm()) {
+<div
+  class="form-overlay fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center"
+>
+  <div
+    class="form-container bg-black w-full max-w-lg mx-4 p-6 md:p-8 rounded-lg max-h-[90vh] overflow-y-auto"
+  >
+    <button
+      (click)="showForm.set(false)"
+      class="close-button absolute top-4 right-4 text-3xl font-bold transition-colors"
+    >
+      ×
+    </button>
+
+    <h1 class="text-white text-2xl text-center raleway mb-6">
+      RESERVA TU EXPERIENCIA
+    </h1>
+
+    <form [formGroup]="form" class="flex flex-col gap-4">
+      <input
+        placeholder="Nombre completo"
+        type="text"
+        formControlName="name"
+        class="form-input"
+      />
+      @if (name?.invalid && name?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Dirección"
+        type="text"
+        formControlName="address"
+        class="form-input"
+      />
+      @if (address?.invalid && address?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Teléfono"
+        type="text"
+        formControlName="phone"
+        class="form-input"
+      />
+      @if (phone?.invalid && phone?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        class="form-input"
+      />
+      @if (email?.invalid && email?.touched) {
+      <span class="error">{{
+        email?.hasError("email") ? "Email inválido" : "Campo requerido"
+      }}</span>
+      }
+
+      <input
+        (click)="changeType($event)"
+        placeholder="Fecha de cumpleaños"
+        type="text"
+        formControlName="birthday"
+        class="form-input"
+      />
+      @if (birthday?.invalid && birthday?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Cocktail favorito"
+        type="text"
+        formControlName="favoriteDrink"
+        class="form-input"
+      />
+
+      <button
+        (click)="saveSolar()"
+        type="button"
+        [disabled]="form.invalid || isLoading()"
+        class="bg-white text-black px-4 py-2 rounded-xl font-bold text-2xl raleway mt-5 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+      >
+        @if (isLoading()) {
+        <span class="native-loader"></span>
+        } @else { REGISTRARSE }
+      </button>
+    </form>
+  </div>
+</div>
+}
+
+<!-- Loading Overlay -->
+@if (isLoading()) {
+<div
+  class="opacity-50 fixed top-0 left-0 bg-black h-screen w-screen flex justify-center items-center z-50"
+>
+  <div class="loader"></div>
+</div>
+}

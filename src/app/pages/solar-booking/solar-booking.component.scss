@@ -1,0 +1,310 @@
+// Estilos globales para el componente
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f2937 0%, #000000 50%, #1f2937 100%);
+}
+
+// Estilos para PrimeNG components
+::ng-deep {
+  // Select component
+  .p-select {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.5rem !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    &:focus-within {
+      border-color: #fbbf24 !important;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1) !important;
+    }
+
+    .p-select-label {
+      color: white !important;
+      font-weight: 500 !important;
+    }
+
+    .p-select-trigger {
+      color: white !important;
+    }
+  }
+
+  // Input text component
+  .p-inputtext {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.5rem !important;
+    color: white !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    &:focus {
+      border-color: #fbbf24 !important;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1) !important;
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    // Estado de error
+    &.border-red-500 {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+    }
+  }
+
+  // DatePicker component
+  .p-datepicker {
+    width: 100% !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    &:focus-within {
+      border-color: #fbbf24 !important;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1) !important;
+    }
+
+    .p-datepicker-input {
+      background-color: transparent !important;
+      border: none !important;
+      color: white !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 1rem !important;
+      width: 100% !important;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6) !important;
+      }
+    }
+
+    .p-datepicker-trigger {
+      color: white !important;
+      background-color: transparent !important;
+      border: none !important;
+    }
+
+    // Estado de error
+    &.border-red-500 {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+    }
+  }
+
+  // Dropdown panel
+  .p-dropdown-panel {
+    background-color: #1f2937 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .p-dropdown-item {
+    color: white !important;
+    background-color: transparent !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    &.p-highlight {
+      background-color: rgba(251, 191, 36, 0.2) !important;
+      color: #fbbf24 !important;
+    }
+  }
+
+  // Calendar panel
+  .p-calendar-panel {
+    background-color: #1f2937 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .p-datepicker-header {
+    background-color: transparent !important;
+    color: white !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 1rem !important;
+  }
+
+  .p-datepicker-calendar {
+    background-color: transparent !important;
+    color: white !important;
+
+    th {
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-weight: 600 !important;
+      padding: 0.5rem !important;
+    }
+
+    td {
+      color: white !important;
+      transition: all 0.2s ease !important;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      &.p-datepicker-today {
+        background-color: rgba(251, 191, 36, 0.2) !important;
+        color: #fbbf24 !important;
+        font-weight: bold !important;
+      }
+
+      &.p-datepicker-day-selected {
+        background-color: #fbbf24 !important;
+        color: black !important;
+        font-weight: bold !important;
+      }
+
+      &.p-datepicker-day-disabled {
+        color: rgba(255, 255, 255, 0.3) !important;
+        cursor: not-allowed !important;
+      }
+    }
+  }
+
+  // Botones de navegación del calendario
+  .p-datepicker-prev,
+  .p-datepicker-next {
+    color: white !important;
+    background-color: transparent !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+}
+
+// Animaciones personalizadas
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Aplicar animaciones
+form {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  :host {
+    padding: 0 1rem;
+  }
+
+  .max-w-2xl {
+    max-width: 100%;
+  }
+
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+// Estados de carga
+.pi-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Mejoras de accesibilidad
+button:focus-visible,
+input:focus-visible,
+.p-select:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+// Estilos para el backdrop de confirmación
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+// Efectos de glassmorphism
+.bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.2);
+}

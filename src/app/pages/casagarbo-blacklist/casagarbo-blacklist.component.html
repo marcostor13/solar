@@ -1,0 +1,89 @@
+<div
+  class="bg-black p-10 flex flex-col items-center justify-center min-h-screen"
+>
+  <img width="400" src="/blacklist/02.png" alt="Logo" class="logo" />
+  <img src="/blacklist/04.png" alt="Logo" class="mt-10" />
+  <img src="/blacklist/3-4-04.png" alt="" class="mt-10" />
+  <button
+    (click)="toggleForm()"
+    class="bg-transparent text-white px-4 py-2 border-2 uppercase text-xl mt-10 button2"
+  >
+    Registrate aquí
+  </button>
+</div>
+
+<!-- Formulario modal -->
+@if (showForm()) {
+<div class="form-overlay">
+  <div class="form-container">
+    <button (click)="toggleForm()" class="close-button">×</button>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submitForm()"
+      class="registration-form"
+    >
+      <div class="form-field">
+        <label>NOMBRE Y APELLIDO:</label>
+        <input type="text" formControlName="name" placeholder=" " />
+        @if (form.controls['name'].invalid && form.controls['name'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>CORREO:</label>
+        <input type="email" formControlName="email" placeholder=" " />
+        @if (form.controls['email'].invalid && form.controls['email'].touched) {
+        <span class="error">Email inválido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>CELULAR:</label>
+        <input type="tel" formControlName="phone" placeholder=" " />
+        @if (form.controls['phone'].invalid && form.controls['phone'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>FECHA DE NACIMIENTO:</label>
+        <input type="date" formControlName="dateOfBirth" />
+        @if (form.controls['dateOfBirth'].invalid &&
+        form.controls['dateOfBirth'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>DIRECCION:</label>
+        <input type="text" formControlName="address" placeholder=" " />
+        @if (form.controls['address'].invalid &&
+        form.controls['address'].touched) {
+        <span class="error">Campo requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>REFERIDO POR:</label>
+        <input type="text" formControlName="favoriteDrink" placeholder=" " />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+        class="submit-button"
+      >
+        @if (isLoading()) { Enviando... } @else { Enviar }
+      </button>
+    </form>
+
+    <div class="logos-section">
+      <img src="/blacklist/3-4-03.png" alt="" />
+    </div>
+
+    <div class="address">CANTUARIAS 175, MIRAFLORES</div>
+  </div>
+</div>
+}

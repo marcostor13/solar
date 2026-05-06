@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist/solar/browser"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# This ensures that Netlify treats this as an Angular SSR project
+# if the @netlify/angular-runtime is present or automatically detected.
+[functions]
+  node_bundler = "esbuild"

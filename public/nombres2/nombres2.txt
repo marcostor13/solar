@@ -1,0 +1,123 @@
+import pandas as pd
+import os
+from dotenv import load_dotenv
+
+# --- LangChain y OpenAI Imports ---
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
+from langchain_core.pydantic_v1 import BaseModel, Field
+
+# -----------------------------------------------------------------------------
+# PASO 1: CARGAR LA CONFIGURACIÓN
+# -----------------------------------------------------------------------------
+# Cargar la clave de API desde el archivo .env
+load_dotenv()
+
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError("No se encontró la clave de API de OpenAI. Asegúrate de crear un archivo .env")
+
+# -----------------------------------------------------------------------------
+# PASO 2: DEFINIR LA ESTRUCTURA DE SALIDA DESEADA
+# -----------------------------------------------------------------------------
+# Le decimos a LangChain cómo queremos que sea el JSON de salida.
+# Esto hace que el resultado sea fiable y fácil de procesar.
+class Nombres(BaseModel):
+    primer_nombre: str = Field(description="El primer nombre extraído de la cadena de texto.")
+    primer_apellido: str = Field(description="El primer apellido (paterno) extraído de la cadena de texto.")
+
+# -----------------------------------------------------------------------------
+# PASO 3: CREAR EL PROMPT (LAS INSTRUCCIONES PARA LA IA)
+# -----------------------------------------------------------------------------
+# Este es el corazón del sistema. Le damos contexto, ejemplos y el formato de salida.
+prompt_template = """
+Eres un experto analista de datos especializado en la estructura de nombres y apellidos de Perú.
+Tu tarea es extraer el primer nombre y el primer apellido de un nombre completo.
+
+Considera los siguientes ejemplos para entender la tarea a la perfección:
+
+1.  **Nombre de entrada:** "Torres Alarcón Marcos Orlando"
+    **Análisis:** Los apellidos son "Torres Alarcón", los nombres son "Marcos Orlando".
+    **Resultado esperado:** {{"primer_nombre": "Marcos", "primer_apellido": "Torres"}}
+
+2.  **Nombre de entrada:** "Macedo de Torres Magali"
+    **Análisis:** El apellido compuesto es "Macedo de Torres", el nombre es "Magali".
+    **Resultado esperado:** {{"primer_nombre": "Magali", "primer_apellido": "Macedo"}}
+
+3.  **Nombre de entrada:** "Vargas Machuca Rada Gisbell Juluani"
+    **Análisis:** Este es un caso complejo. "Vargas", "Machuca" y "Rada" son apellidos. El nombre comienza en "Gisbell".
+    **Resultado esperado:** {{"primer_nombre": "Gisbell", "primer_apellido": "Vargas"}}
+
+4.  **Nombre de entrada:** "Castañeda Canchucaja Johanna del Pilar"
+    **Análisis:** "Castañeda Canchucaja" son los apellidos. "Johanna del Pilar" es un nombre compuesto.
+    **Resultado esperado:** {{"primer_nombre": "Johanna", "primer_apellido": "Castañeda"}}
+
+Ahora, procesa el siguiente nombre completo.
+No añadas explicaciones ni texto introductorio, solo devuelve el objeto JSON.
+
+**Nombre de entrada:** {nombre_completo}
+
+{format_instructions}
+"""
+
+# -----------------------------------------------------------------------------
+# PASO 4: CONSTRUIR LA CADENA DE LANGCHAIN
+# -----------------------------------------------------------------------------
+# 1. Definimos el modelo de IA que usaremos (GPT-4o es excelente para razonamiento)
+#    (Puedes usar "gpt-3.5-turbo" si prefieres un modelo más rápido y económico)
+llm = ChatOpenAI(model="gpt-4o", temperature=0)
+
+# 2. Creamos un parser para asegurarnos de que la salida sea un JSON válido
+parser = JsonOutputParser(pydantic_object=Nombres)
+
+# 3. Creamos la plantilla del prompt con las variables de entrada
+prompt = ChatPromptTemplate.from_template(
+    template=prompt_template,
+    partial_variables={"format_instructions": parser.get_format_instructions()}
+)
+
+# 4. Unimos todos los componentes en una "cadena"
+#    La información fluye así: input -> prompt -> modelo LLM -> parser -> output
+chain = prompt | llm | parser
+
+# -----------------------------------------------------------------------------
+# PASO 5: EJECUTAR EL PROCESO
+# -----------------------------------------------------------------------------
+def procesar_nombres(archivo_csv: str) -> pd.DataFrame:
+    """
+    Lee un archivo CSV, extrae nombres y apellidos usando la cadena de LangChain
+    y devuelve un DataFrame con los resultados.
+    """
+    df = pd.read_csv(archivo_csv)
+    resultados = []
+
+    print("Procesando nombres con OpenAI y LangChain... Esto puede tardar unos segundos.")
+
+    for index, row in df.iterrows():
+        nombre_completo = row['Personas']
+        try:
+            # Invocamos la cadena para cada nombre
+            resultado_ia = chain.invoke({"nombre_completo": nombre_completo})
+            resultados.append(resultado_ia)
+            print(f"  - Procesado: {nombre_completo} -> {resultado_ia}")
+        except Exception as e:
+            print(f"Error procesando '{nombre_completo}': {e}")
+            # Si hay un error, añadimos un resultado vacío para mantener la estructura
+            resultados.append({"primer_nombre": "ERROR", "primer_apellido": "ERROR"})
+
+    # Convertimos la lista de diccionarios en un DataFrame y lo unimos al original
+    df_resultados = pd.DataFrame(resultados)
+    df_final = pd.concat([df, df_resultados], axis=1)
+    
+    return df_final.rename(columns={"primer_nombre": "Primer Nombre", "primer_apellido": "Primer Apellido"})
+
+# --- Ejecución Principal ---
+if __name__ == "__main__":
+    df_resultado_final = procesar_nombres("TestNombre.xlsx - Hoja1.csv")
+    
+    print("\n--- Tabla de Resultados Final ---")
+    print(df_resultado_final[['Personas', 'Primer Nombre', 'Primer Apellido']])
+    
+    # Opcional: Guardar el resultado en un nuevo archivo CSV
+    df_resultado_final.to_csv("resultado_con_ia.csv", index=False)
+    print("\nResultados guardados en 'resultado_con_ia.csv'")

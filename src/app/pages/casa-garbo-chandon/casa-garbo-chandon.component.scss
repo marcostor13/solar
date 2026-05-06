@@ -1,0 +1,186 @@
+/* Landing Page - Logos distribuidos uniformemente */
+.logo-item {
+  flex-shrink: 0;
+  max-height: 20vh; /* Limita la altura máxima de cada logo */
+
+  @media (min-width: 768px) {
+    max-height: 18vh;
+  }
+
+  @media (min-width: 1024px) {
+    max-height: 16vh;
+  }
+}
+
+/* Botón estilo similar a casagarbo-blacklist */
+.button-style {
+  font-family: "Mars Extended", sans-serif;
+}
+
+/* Formulario */
+.registration-form {
+  width: 100%;
+  min-height: 0; /* Permite que el flex funcione correctamente */
+}
+
+.form-field {
+  text-align: left;
+  // margin-bottom: 1.25rem;
+
+  @media (min-width: 640px) {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    margin-bottom: 1.75rem;
+  }
+}
+
+.form-label {
+  display: block;
+  font-family: "Moret", serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: #caae74;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #caae74;
+  color: #caae74;
+  font-family: "Kanit", sans-serif;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus {
+    border-bottom-color: #a0c8ff;
+  }
+
+  &[type="date"] {
+    color-scheme: dark;
+  }
+
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  &[type="date"]::-moz-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  &[type="date"]::-ms-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: #caae74;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+  }
+}
+
+.submit-button {
+  width: 100%;
+  background: white;
+  color: #caae74;
+  border: none;
+  padding: 0.875rem 1rem;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+
+  @media (min-width: 768px) {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  &:hover:not(:disabled) {
+    background: #caae74;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background: transparent;
+    border: 1px solid #caae74;
+    color: #caae74;
+    cursor: not-allowed;
+  }
+}
+
+/* Safari compatibility */
+@supports (-webkit-appearance: none) {
+  .form-input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-input[type="date"]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/%3E%3C/svg%3E")
+      no-repeat center;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+    cursor: pointer;
+    filter: none;
+  }
+}
+
+/* Asegurar que el icono sea blanco en todos los casos */
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}
+
+.form-input[type="date"]::-moz-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}
+
+.form-input[type="date"]::-ms-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}
+
+.button1 {
+  color: #caae74;
+  border: 2px solid #caae74;
+}

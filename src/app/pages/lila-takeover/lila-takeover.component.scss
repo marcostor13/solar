@@ -1,0 +1,58 @@
+.fade-in {
+  animation: fadeIn 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+  }
+  to {
+    width: 2000px;
+    height: 2000px;
+  }
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid white !important;
+}
+
+.background {
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.but {
+  top: 60%;
+  min-height: 250px;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid white;
+  border-top: 10px solid black;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+}

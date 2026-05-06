@@ -1,0 +1,124 @@
+.background {
+  background-color: #000000; /* Fondo negro */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Asegurar que la imagen mantenga su aspecto sin distorsión */
+  @media (max-width: 768px) {
+    background-size: contain;
+  }
+
+  @media (min-width: 769px) {
+    background-size: contain;
+  }
+}
+
+/* Área clicable en el 25% inferior */
+.clickable-area {
+  height: 25%;
+  background: transparent;
+  z-index: 10;
+}
+
+/* Formulario Modal */
+.form-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.form-container {
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background-color: #000000; /* Fondo negro */
+}
+
+.close-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 0, 0.1);
+  color: #ffffff; /* Amarillo */
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 0, 0.2);
+  }
+}
+
+.form-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ffffff; /* Amarillo */
+  color: #ffffff; /* Amarillo */
+  padding: 0.75rem 0;
+  width: 100%;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &::placeholder {
+    color: rgb(187, 187, 187); /* Amarillo con transparencia */
+  }
+
+  &:focus {
+    border-bottom-color: #ffffff; /* Amarillo */
+  }
+
+  &[type="date"] {
+    color-scheme: dark;
+  }
+
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(2) saturate(5) hue-rotate(0deg);
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: #ffffff; /* Amarillo */
+  font-size: 0.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid white;
+  border-top: 10px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.native-loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-top: 3px solid #000;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}

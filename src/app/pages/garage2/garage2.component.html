@@ -1,0 +1,108 @@
+@if (completed()) {
+<!-- Vista de Confirmación -->
+<div class="bg-black h-screen w-screen flex justify-center items-center">
+  <p class="text-white text-2xl text-center raleway mt-10 p-5">
+    Ya estás registrado en la lista para Garage.
+  </p>
+</div>
+} @else {
+<!-- Landing con fondo -->
+<div
+  class="background h-screen w-screen bg-cover bg-center bg-no-repeat relative"
+  [style.background-image]="'url(\'/garage/Recurso 15.png\')'"
+>
+  <!-- Área clicable en el 25% inferior -->
+  <div
+    class="clickable-area absolute bottom-0 left-0 w-full cursor-pointer"
+    (click)="openForm()"
+    title="Haz clic para registrarte"
+  ></div>
+</div>
+
+<!-- Formulario Modal -->
+@if (showForm()) {
+<div
+  class="form-overlay fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center"
+>
+  <div
+    class="form-container bg-black w-full max-w-lg mx-4 p-6 md:p-8 rounded-lg max-h-[90vh] overflow-y-auto"
+  >
+    <button
+      (click)="showForm.set(false)"
+      class="close-button absolute top-4 right-4 text-3xl font-bold transition-colors"
+    >
+      ×
+    </button>
+
+    <h1 class="text-white text-2xl text-center raleway mb-6">
+      RESERVA TU EXPERIENCIA
+    </h1>
+
+    <form [formGroup]="form" class="flex flex-col gap-4">
+      <input
+        placeholder="Nombre"
+        type="text"
+        formControlName="name"
+        class="form-input"
+      />
+      @if (name?.invalid && name?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Dni"
+        type="text"
+        formControlName="address"
+        class="form-input"
+      />
+      @if (address?.invalid && address?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Celular"
+        type="text"
+        formControlName="phone"
+        class="form-input"
+      />
+      @if (phone?.invalid && phone?.touched) {
+      <span class="error">Campo requerido</span>
+      }
+
+      <input
+        placeholder="Correo"
+        type="email"
+        formControlName="email"
+        class="form-input"
+      />
+
+      <input
+        placeholder="Referido por"
+        type="text"
+        formControlName="reference"
+        class="form-input"
+      />
+
+      <button
+        (click)="saveSolar()"
+        type="button"
+        [disabled]="form.invalid || isLoading()"
+        class="bg-white text-black px-4 py-2 rounded-xl font-bold text-2xl raleway mt-5 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+      >
+        @if (isLoading()) {
+        <span class="native-loader"></span>
+        } @else { REGISTRARSE }
+      </button>
+    </form>
+  </div>
+</div>
+}
+
+<!-- Loading Overlay -->
+@if (isLoading()) {
+<div
+  class="opacity-50 fixed top-0 left-0 bg-black h-screen w-screen flex justify-center items-center z-50"
+>
+  <div class="loader"></div>
+</div>
+} }

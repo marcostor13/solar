@@ -1,0 +1,104 @@
+<div class="images-container">
+  <div
+    class="bg-black opacity-50 absolute top-0 left-0 w-screen h-screen background-opacity"
+  ></div>
+  <div
+    [ngClass]="{
+      'show-image': currentImage === 1,
+      'hide-image': currentImage !== 1
+    }"
+    class="image-item"
+  >
+    <img src="/disconnection.jpeg" alt="disconection" />
+  </div>
+  <div
+    [ngClass]="{
+      'show-image': currentImage === 2,
+      'hide-image': currentImage !== 2
+    }"
+    class="image-item"
+  >
+    <img src="/strega.jpeg" alt="strega" />
+  </div>
+  <div
+    [ngClass]="{
+      'show-image': currentImage === 3,
+      'hide-image': currentImage !== 3
+    }"
+    class="image-item"
+  >
+    <img src="/disconnection.jpeg" alt="disconection" />
+  </div>
+
+  <div
+    [ngClass]="{
+      'show-image': currentImage === 4,
+      'hide-image': currentImage !== 4
+    }"
+    class="image-item"
+  >
+    <img src="/strega.jpeg" alt="strega" />
+  </div>
+
+  <div class="absolute top-0 left-0 w-full h-full cont">
+    <div
+      [ngClass]="{
+        'bg-black': currentImage === 1 || currentImage === 3,
+        'bg-strega': currentImage === 2 || currentImage === 4
+      }"
+      class="absolute top-0 left-0 w-28 h-full bg-black z-1"
+    ></div>
+    <div
+      #scrollableDiv
+      class="scrollable-div"
+      (scroll)="onScroll($event)"
+      class="flex px-6 logos h-screen flex-col items-start"
+    >
+      <img
+        [ngClass]="{ 'opacity-50': currentImage !== 1 }"
+        width="200"
+        src="/logo-disconnection.png"
+        alt="logo"
+      />
+      <img
+        [ngClass]="{ 'opacity-50': currentImage !== 2 }"
+        width="130"
+        class="ml-10"
+        src="/strega logo.png"
+        alt="logo"
+      />
+      <img
+        [ngClass]="{ 'opacity-50': currentImage !== 3 }"
+        width="200"
+        src="/logo-disconnection.png"
+        alt="logo"
+      />
+      <img
+        [ngClass]="{ 'opacity-50': currentImage !== 4 }"
+        width="130"
+        class="ml-10 ultima"
+        src="/strega logo.png"
+        alt="logo"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="reser w-screen h-screen cont flex flex-col">
+  <div
+    (click)="redirectToBooking()"
+    [ngClass]="{ 'bg-black': currentImage == 1 || currentImage == 3, 'bg-strega': currentImage === 2 || currentImage === 4, }"
+    class="reserva text-white text-xl px-8 my-16 font-light"
+  >
+    Reservar
+  </div>
+  <div
+    [ngClass]="{
+      'bg-black': currentImage == 1 || currentImage === 3,
+      'bg-strega': currentImage === 2 || currentImage === 4
+    }"
+    class="reserva text-white text-xl px-8 my-16 font-light"
+  >
+    Info
+  </div>
+</div>

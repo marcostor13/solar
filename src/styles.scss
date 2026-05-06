@@ -1,1 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeicons/primeicons.css";
+
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+/* Fuentes locales - Casa Garbo */
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-Book.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-BookOblique.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-RegularOblique.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-SemiboldOblique.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-BoldOblique.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-Extrabold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Moret";
+  src: url("/casagargo-fonts/Moret-ExtraboldOblique.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mars Extended";
+  src: url("/casagargo-fonts/Copia%20de%20marsextended-regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCHoneymoonVariable";
+  src: url("/casagargo-fonts/Copia%20de%20ABCHoneymoonVariableVF-Trial.ttf")
+    format("truetype");
+  font-weight: 100 900; /* variable */
+  font-style: normal;
+  font-display: swap;
+}
+
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.playfair-display {
+  font-family: "Playfair Display", serif;
+}
+
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+}
+
+.kanit {
+  font-family: "Kanit", sans-serif;
+}
+
+/* Utilidades de fuentes locales */
+.font-moret {
+  font-family: "Moret", serif;
+}
+.font-moret-semibold {
+  font-family: "Moret", serif;
+  font-weight: 600;
+}
+.font-moret-bold {
+  font-family: "Moret", serif;
+  font-weight: 700;
+}
+.font-moret-extrabold {
+  font-family: "Moret", serif;
+  font-weight: 800;
+}
+
+.font-mars-extended {
+  font-family: "Mars Extended", sans-serif;
+}
+
+.font-abc-honeymoon {
+  font-family: "ABCHoneymoonVariable", serif;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Animación para el contenido que sale */
+@keyframes slide-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 0.7s ease-out both slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.7s ease-in both slide-in;
+}

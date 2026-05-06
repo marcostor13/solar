@@ -1,0 +1,123 @@
+<div class="invitation-container">
+  <!-- Sección principal con fondo de imagen -->
+  <div class="main-section">
+    <div class="content-overlay">
+      <h1 class="title">CASA GARBO</h1>
+      <h2 class="subtitle">1º Aniversario</h2>
+
+      <div class="oval-container">
+        <p class="oval-text">UN AÑO DESPUÉS, SEGUIMOS BRINDANDO JUNTOS</p>
+      </div>
+
+      <div class="building-icon">
+        <img
+          src="/galery-garbo/casa.png"
+          alt="Casa Garbo"
+          class="building-image"
+        />
+      </div>
+
+      <div class="date-info">
+        <p class="date">JUEVES 23 DE OCTUBRE</p>
+        <p class="time">8PM</p>
+      </div>
+
+      <p class="special-guest-label">INVITADO ESPECIAL</p>
+      <div class="special-guest-container">
+        <img
+          src="/galery-garbo/astrid y gaston.png"
+          alt="Astrid & Gastón"
+          class="logo2"
+        />
+      </div>
+
+      <button (click)="toggleForm()" class="register-button">
+        Registrate aquí
+      </button>
+    </div>
+  </div>
+  <img src="/galery-garbo/foto1.jpg" alt="QR" class="image-background" />
+
+  <!-- Formulario modal -->
+  @if (showForm()) {
+  <div class="form-overlay">
+    <div class="form-container">
+      <button (click)="toggleForm()" class="close-button">×</button>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submitForm()"
+        class="registration-form"
+      >
+        <div class="form-field">
+          <label>NOMBRE Y APELLIDO:</label>
+          <input type="text" formControlName="name" placeholder=" " />
+          @if (form.controls['name'].invalid && form.controls['name'].touched) {
+          <span class="error">Campo requerido</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label>CORREO:</label>
+          <input type="email" formControlName="email" placeholder=" " />
+          @if (form.controls['email'].invalid && form.controls['email'].touched)
+          {
+          <span class="error">Email inválido</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label>CELULAR:</label>
+          <input type="tel" formControlName="phone" placeholder=" " />
+          @if (form.controls['phone'].invalid && form.controls['phone'].touched)
+          {
+          <span class="error">Campo requerido</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label>FECHA DE NACIMIENTO:</label>
+          <input type="date" formControlName="dateOfBirth" />
+          @if (form.controls['dateOfBirth'].invalid &&
+          form.controls['dateOfBirth'].touched) {
+          <span class="error">Campo requerido</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label>DIRECCION:</label>
+          <input type="text" formControlName="address" placeholder=" " />
+          @if (form.controls['address'].invalid &&
+          form.controls['address'].touched) {
+          <span class="error">Campo requerido</span>
+          }
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="form.invalid || isLoading()"
+          class="submit-button"
+        >
+          @if (isLoading()) { Enviando... } @else { Enviar }
+        </button>
+      </form>
+
+      <div class="logos-section">
+        <div class="royal-salute-logo">
+          <img
+            src="/galery-garbo/LOGO/LOGO/Logo - RS-03.png"
+            alt="Royal Salute"
+            class="royal-salute-image"
+          />
+        </div>
+
+        <div class="casa-garbo-logo">
+          <h1 class="title2">CASA GARBO</h1>
+        </div>
+      </div>
+
+      <div class="address">CANTUARIAS 175, MIRAFLORES</div>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,221 @@
+@if (!showConfirmation()) {
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
+  <!-- Header con logo -->
+  <div class="flex justify-center items-center pt-8 pb-6">
+    <img
+      src="/LOGOTIPO-SOLAR.png"
+      alt="Solar Booking Group Logo"
+      class="h-24 md:h-32 w-auto"
+    />
+  </div>
+
+  <!-- Título principal -->
+  <div class="text-center mb-8 px-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
+      Solar Booking Group
+    </h1>
+    <p class="text-gray-300 text-lg">Únete a nuestra comunidad exclusiva</p>
+  </div>
+
+  <!-- Formulario -->
+  <div class="max-w-2xl mx-auto px-4 pb-8">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Selector de Local -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Local *</label>
+        <p-select
+          [options]="localOptions"
+          formControlName="local"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecciona un local"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('local')?.invalid && form.get('local')?.touched
+          }"
+        />
+        @if (getFieldError('local')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("local") }}</p>
+        }
+      </div>
+
+      <!-- Nombre completo -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Nombre completo *</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="name"
+          placeholder="Ingresa tu nombre completo"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('name')?.invalid && form.get('name')?.touched
+          }"
+        />
+        @if (getFieldError('name')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("name") }}</p>
+        }
+      </div>
+
+      <!-- Dirección -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Dirección *</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="address"
+          placeholder="Ingresa tu dirección"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('address')?.invalid && form.get('address')?.touched
+          }"
+        />
+        @if (getFieldError('address')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("address") }}</p>
+        }
+      </div>
+
+      <!-- Teléfono -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Teléfono *</label>
+        <input
+          type="tel"
+          pInputText
+          formControlName="phone"
+          placeholder="Ingresa tu número de teléfono"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('phone')?.invalid && form.get('phone')?.touched
+          }"
+        />
+        @if (getFieldError('phone')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("phone") }}</p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Correo electrónico *</label>
+        <input
+          type="email"
+          pInputText
+          formControlName="email"
+          placeholder="Ingresa tu correo electrónico"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('email')?.invalid && form.get('email')?.touched
+          }"
+        />
+        @if (getFieldError('email')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("email") }}</p>
+        }
+      </div>
+
+      <!-- Fecha de cumpleaños -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium"
+          >Fecha de cumpleaños *</label
+        >
+        <p-datepicker
+          formControlName="dateOfBirth"
+          placeholder="Selecciona tu fecha de nacimiento"
+          [maxDate]="maxDate"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          [icon]="'pi pi-calendar'"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('dateOfBirth')?.invalid &&
+              form.get('dateOfBirth')?.touched
+          }"
+        />
+        @if (getFieldError('dateOfBirth')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("dateOfBirth") }}</p>
+        }
+      </div>
+
+      <!-- Cocktail Favorito -->
+      <div class="space-y-2">
+        <label class="block text-white font-medium">Cocktail Favorito *</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="favoriteDrink"
+          placeholder="¿Cuál es tu cocktail favorito?"
+          class="w-full"
+          [ngClass]="{
+            'border-red-500':
+              form.get('favoriteDrink')?.invalid &&
+              form.get('favoriteDrink')?.touched
+          }"
+        />
+        @if (getFieldError('favoriteDrink')) {
+        <p class="text-red-400 text-sm">{{ getFieldError("favoriteDrink") }}</p>
+        }
+      </div>
+
+      <!-- Botón de envío -->
+      <div class="pt-4">
+        <button
+          type="submit"
+          [disabled]="isLoading()"
+          class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          @if (isLoading()) {
+          <span class="flex items-center justify-center">
+            <i class="pi pi-spin pi-spinner mr-2"></i>
+            Enviando...
+          </span>
+          } @else { Enviar Solicitud }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+} @if (showConfirmation()) {
+<!-- Pantalla de confirmación -->
+<div
+  class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center px-4"
+>
+  <div
+    class="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center border border-white/20"
+  >
+    <!-- Logo en la confirmación -->
+    <div class="flex justify-center mb-6">
+      <img
+        src="/LOGOTIPO-SOLAR.png"
+        alt="Solar Booking Group Logo"
+        class="h-20 w-auto"
+      />
+    </div>
+
+    <!-- Mensaje de confirmación -->
+    <div class="mb-8">
+      <div
+        class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4"
+      >
+        <i class="pi pi-check text-white text-2xl"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-4">¡Solicitud Enviada!</h2>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Gracias por unirte a Solar Booking Group. Hemos recibido tu información
+        y nos pondremos en contacto contigo pronto.
+      </p>
+    </div>
+
+    <!-- Botón cerrar -->
+    <button
+      (click)="closeConfirmation()"
+      class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+    >
+      Cerrar
+    </button>
+  </div>
+</div>
+}

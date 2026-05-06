@@ -1,0 +1,129 @@
+Informe del paquete
+
+-----------------------------------------------------------------------------
+Documento:
+Nombre: VARIOS FORMATOS.ai
+Modo de color: Color RGB
+Perfil de color: sRGB IEC61966-2.1
+Unidades de regla: píxeles
+Dimensiones de la mesa de trabajo: 1920 px x 1080 px
+Mostrar imágenes en modo contorno: Desactivado
+Resaltar fuentes sustituidas: Desactivado
+Resaltar glifos sustituidos: Desactivado
+Conservar capacidad de edición de texto
+Simular papel de color: Desactivado
+
+-----------------------------------------------------------------------------
+Objetos de tintas planas:
+
+-----------------------------------------------------------------------------
+Fuentes no disponibles:Ninguno
+
+-----------------------------------------------------------------------------
+Fuentes protegidas no empaquetadas:Ninguno
+
+-----------------------------------------------------------------------------
+Fuentes:
+Ramose-Regular (TrueType)
+Unbounded SemiBold (TrueType)
+Unbounded Regular (TrueType)
+
+-----------------------------------------------------------------------------
+Fuentes incrustadas:
+Ninguno
+
+-----------------------------------------------------------------------------
+Enlaces no disponibles:
+Ninguno
+
+-----------------------------------------------------------------------------
+Imágenes enlazadas:
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\STREGA\Logos Pernod Ricard\Logos Pernod Ricard\Logo Beefeater\Beefeater White Logo.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 23905K, 3507 por 1745 píxeles
+Dimensiones: 211.955 por 105.464 puntos 
+Resolución: 1191.309 por 1191.309 píxeles por pulgada
+
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\ELEPHANT\ICONO ELEPHANT.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 430K, 349 por 316 píxeles
+Dimensiones: 138.588 por 125.483 puntos 
+Resolución: 181.315 por 181.315 píxeles por pulgada
+
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\STREGA\Logos Pernod Ricard\Logos Pernod Ricard\Logo Beefeater\Beefeater White Logo.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 23905K, 3507 por 1745 píxeles
+Dimensiones: 175.036 por 87.094 puntos 
+Resolución: 1442.581 por 1442.581 píxeles por pulgada
+
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\ELEPHANT\ICONO ELEPHANT.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 430K, 349 por 316 píxeles
+Dimensiones: 117.028 por 105.962 puntos 
+Resolución: 214.717 por 214.717 píxeles por pulgada
+
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\STREGA\Logos Pernod Ricard\Logos Pernod Ricard\Logo Beefeater\Beefeater White Logo.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 23905K, 3507 por 1745 píxeles
+Dimensiones: 103.442 por 51.47 puntos 
+Resolución: 2441.02 por 2441.02 píxeles por pulgada
+
+
+C:\Users\LENOVO\Documents\DISEÑOS EXTRAS\TRABAJO SOLAR\ELEPHANT\ICONO ELEPHANT.png
+Tipo: RGB transparente
+Bits por píxel: 32
+Canales: 4
+Tamaño: 430K, 349 por 316 píxeles
+Dimensiones: 78.324 por 70.918 puntos 
+Resolución: 320.821 por 320.821 píxeles por pulgada
+
+
+C:\Users\LENOVO\Downloads\descarga (59).jpeg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 2380K, 677 por 1200 píxeles
+Dimensiones: 712.228 por 1262.442 puntos 
+Resolución: 68.439 por 68.439 píxeles por pulgada
+
+
+C:\Users\LENOVO\Downloads\fondo-rojo-grunge.jpg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 73449K, 4336 por 5782 píxeles
+Dimensiones: 874.871 por 1166.63 puntos 
+Resolución: 356.843 por 356.843 píxeles por pulgada
+
+
+C:\Users\LENOVO\Downloads\descarga (59).jpeg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 2380K, 677 por 1200 píxeles
+Dimensiones: 471.287 por 835.368 puntos 
+Resolución: 103.428 por 103.428 píxeles por pulgada
+
+
+C:\Users\LENOVO\Downloads\fondo-rojo-grunge.jpg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 73449K, 4336 por 5782 píxeles
+Dimensiones: 578.909 por 771.968 puntos 
+Resolución: 539.276 por 539.276 píxeles por pulgada

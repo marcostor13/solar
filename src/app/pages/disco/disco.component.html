@@ -1,0 +1,117 @@
+<div class="absolute top-0 left-0 pt-2 flex justify-start items-center">
+  <img width="80" src="/output-onlinegiftools.gif" alt="" />
+  @if(!muted()){
+  <div class="bg-white rounded-full p-2 cursor-pointer" (click)="toggleMuted()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+      />
+    </svg>
+  </div>
+  } @else {
+  <div class="bg-white rounded-full p-2 cursor-pointer" (click)="toggleMuted()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+      />
+    </svg>
+  </div>
+  }
+</div>
+
+@if(completed()) {
+<div class="bg-black h-screen w-screen flex justify-center items-center">
+  <p class="text-white text-2xl text-center raleway mt-10 p-5">
+    Ya estás registrado en la <br />lista para No Signal<br />
+    Full Disconnection el<br />
+    viernes 27.06. <br /><br />Cocktail: 9pm
+  </p>
+</div>
+} @else { @if(step() === 1){
+
+<div
+  class="background h-screen w-screen"
+  [ngStyle]="{
+    'background-image': 'url(disco.jpg)'
+  }"
+>
+  <div
+    class="absolute but w-full cursor-pointer flex justify-center items-end pb-5"
+    (click)="step.set(2)"
+  >
+    <button class="button1 px-7 py-2 rounded-full raleway uppercase">
+      Regístrate aquí
+    </button>
+  </div>
+</div>
+} @if(step() === 2){
+
+<div
+  class="bg-black h-screen w-screen flex justify-center items-center flex-col"
+>
+  <h1 class="text-white text-2xl text-center raleway 90'lp-5 pb-7 uppercase">
+    Confirma tu asistencia
+  </h1>
+  <form [formGroup]="form" class="flex flex-col lg:w-1/2 w-full p-5 mt-5">
+    <input placeholder="Nombre completo" type="text" formControlName="name" />
+    <input placeholder="Dirección" type="text" formControlName="address" />
+    <input placeholder="Teléfono" type="text" formControlName="phone" />
+    <input placeholder="Email" type="text" formControlName="email" />
+
+    <input
+      #birthday2
+      (click)="changeType()"
+      placeholder="Fecha de cumpleaños"
+      type="text"
+      formControlName="birthday"
+    />
+    <input
+      placeholder="Cocktail favorito"
+      type="text"
+      formControlName="favoriteDrink"
+    />
+
+    <button
+      (click)="saveSolar()"
+      type="submit"
+      class="bg-white text-black px-4 py-2 rounded-xl font-bold text-2xl raleway mt-5"
+    >
+      @if(isLoading()) {
+      <span class="native-loader"></span>
+      } REGISTRARSE
+    </button>
+  </form>
+</div>
+} } @if(isLoading()) {
+
+<div
+  class="opacity-50 fixed top-0 left-0 bg-black h-screen w-screen flex justify-center items-center"
+>
+  <div class="loader"></div>
+</div>
+
+}
+
+<!-- iniciar desde el minuto 0:32 -->
+
+<audio #audio autoplay loop [muted]="muted()">
+  <source src="audio2.mp3" type="audio/mp3" />
+</audio>

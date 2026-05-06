@@ -1,0 +1,88 @@
+<div class="validation-container">
+  <div class="validation-content">
+    <h1 class="title">Validación QR</h1>
+
+    @if (showScanner() && !isScanning()) {
+    <div class="scanner-section">
+      <p class="scanner-text">Presiona el botón para escanear el código QR</p>
+      <button (click)="startScanning()" class="scan-button">
+        📷 Escanear Código QR
+      </button>
+      <button (click)="showManualCodeInput()" class="manual-button">
+        ✏️ Ingresar Código Manualmente
+      </button>
+    </div>
+    } @if (isScanning()) {
+    <div class="camera-section">
+      <div class="camera-container">
+        <video
+          #videoElement
+          autoplay
+          muted
+          playsinline
+          class="camera-video"
+        ></video>
+        <canvas #canvasElement class="camera-canvas"></canvas>
+        <div class="scan-overlay">
+          <div class="scan-frame"></div>
+          <p class="scan-instruction">Apunta la cámara al código QR</p>
+        </div>
+      </div>
+      <button (click)="stopScanning()" class="stop-button">
+        Detener Escaneo
+      </button>
+    </div>
+    } @if (showManualInput()) {
+    <div class="manual-section">
+      <p class="manual-text">Ingresa el código QR manualmente</p>
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="manualCode"
+          placeholder="Ej: ABC123"
+          class="code-input"
+          maxlength="20"
+        />
+        <button (click)="validateManualCode()" class="validate-button">
+          Validar Código
+        </button>
+      </div>
+      <button (click)="hideManualCodeInput()" class="back-to-scanner">
+        ← Volver al Escáner
+      </button>
+    </div>
+    } @if (codigo()) {
+    <div class="code-info">
+      <p class="code-label">Código detectado:</p>
+      <p class="code-value">{{ codigo() }}</p>
+    </div>
+    } @if (isValidating()) {
+    <div class="loading-section">
+      <div class="spinner"></div>
+      <p class="loading-text">Validando código...</p>
+    </div>
+    } @if (showResult()) {
+    <div class="result-section">
+      <div class="result-icon" [class]="'result-' + validationResult()">
+        @if (validationResult() === 'active') { ✓ } @else if (validationResult()
+        === 'inactive') { ✗ } @else { ⚠ }
+      </div>
+
+      <p class="result-message" [class]="'message-' + validationResult()">
+        {{ validationMessage() }}
+      </p>
+
+      @if (validationResult() === 'active') {
+      <div class="success-info">
+        <p class="benefit-text">¡Código válido! Puedes reclamar tu cortesía</p>
+        <button (click)="shareEvent()" class="share-button">
+          📤 Compartir Evento
+        </button>
+      </div>
+      }
+    </div>
+    }
+
+    <button (click)="goBack()" class="back-button">Volver</button>
+  </div>
+</div>

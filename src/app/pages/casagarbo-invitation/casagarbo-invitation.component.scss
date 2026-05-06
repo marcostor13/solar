@@ -1,0 +1,530 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.invitation-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #1c4f96;
+}
+
+/* Sección principal con fondo de imagen */
+.main-section {
+  padding: 2rem;
+  padding-bottom: 60px;
+  padding-top: 60px;
+  width: 100%;
+  background-color: #1c4f96;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.image-background {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-overlay {
+  text-align: center;
+  color: #fffffc;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  max-width: 200px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.title {
+  font-family: "Moret", serif;
+  font-weight: 700;
+  font-size: 6rem;
+  letter-spacing: 2px;
+  color: #fffffc;
+  padding: 0;
+  line-height: 1;
+}
+
+.title2 {
+  font-family: "Moret", serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: #fffffc;
+  padding: 0;
+  line-height: 1;
+}
+
+.subtitle {
+  color: #fffffc;
+  font-family: "ABCHoneymoonVariable", serif;
+  font-weight: 400;
+  font-size: 4rem;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.oval-container {
+  display: flex;
+  justify-content: center;
+}
+
+.oval-text {
+  color: #fffffc;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 300;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 80px;
+}
+
+.building-icon {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.date-info {
+  margin: 2rem 0;
+}
+
+.date {
+  font-family: "Mars Extended", sans-serif;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.time {
+  font-family: "Mars Extended", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.special-guest-label {
+  margin-top: 80px;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.special-guest-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo2 {
+  width: 500px;
+  height: auto;
+}
+
+.register-button {
+  background: white;
+  color: #1c54a3;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 80px;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Formulario modal */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.form-container {
+  background: #1c54a3;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.registration-form {
+  margin-top: 40px;
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-field label {
+  display: block;
+  font-family: "Moret", serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.form-field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  font-family: "Kanit", sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-field input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-field input:focus {
+  border-bottom-color: #a0c8ff;
+}
+
+.form-field input[type="date"] {
+  color-scheme: dark;
+}
+
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Para Firefox */
+.form-field input[type="date"]::-moz-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Para Edge */
+.form-field input[type="date"]::-ms-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+  cursor: pointer;
+}
+
+.error {
+  color: #ffdddd;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.submit-button {
+  width: 100%;
+  background: white;
+  color: #1c54a3;
+  border: none;
+  padding: 1rem;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  cursor: not-allowed;
+}
+
+/* Logos section */
+.logos-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.royal-salute-image {
+  width: 150px;
+}
+
+.royal-salute-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crown-icon {
+  font-size: 1.5rem;
+}
+
+.logo-text {
+  font-family: "Moret", serif;
+}
+
+.main-text {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.sub-text {
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.casa-garbo-logo .logo-text {
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.address {
+  text-align: center;
+  font-family: "Mars Extended", sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-overlay {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 3rem;
+  }
+
+  .oval-text {
+    margin-top: 40px;
+    font-size: 1rem;
+  }
+
+  .logo {
+    max-width: 150px;
+    margin-bottom: 1.5rem;
+  }
+
+  .logo2 {
+    width: 300px;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .logos-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .royal-salute-logo {
+    justify-content: center;
+  }
+
+  .building-icon {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 150px;
+    }
+  }
+
+  // .date-info {
+  //   margin: 2rem 0;
+  // }
+
+  .date {
+    font-family: "Mars Extended", sans-serif;
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .time {
+    font-family: "Mars Extended", sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .special-guest-label {
+    margin-top: 40px;
+    font-family: "Mars Extended", sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .special-guest-container {
+    display: flex;
+    justify-content: center;
+  }
+  .register-button {
+    margin-top: 40px;
+    font-size: 1rem;
+  }
+}
+
+// @media (max-width: 480px) {
+//   // .title {
+//   //   font-size: 2rem;
+//   // }
+
+//   // .subtitle {
+//   //   font-size: 1.2rem;
+//   // }
+
+//   .oval-text {
+//     font-size: 1rem;
+//   }
+
+//   .register-button {
+//     padding: 0.8rem 1.5rem;
+//     font-size: 1rem;
+//   }
+
+//   .form-container {
+//     padding: 1rem;
+//   }
+// }
+
+/* Safari compatibility */
+@supports (-webkit-appearance: none) {
+  .form-field input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-field input[type="date"]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/%3E%3C/svg%3E")
+      no-repeat center;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+    cursor: pointer;
+    filter: none;
+  }
+}
+
+/* Asegurar que el icono sea blanco en todos los casos */
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}
+
+.form-field input[type="date"]::-moz-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}
+
+.form-field input[type="date"]::-ms-calendar-picker-indicator {
+  filter: invert(1) brightness(1) contrast(1);
+  opacity: 1 !important;
+}

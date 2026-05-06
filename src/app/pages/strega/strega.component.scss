@@ -1,0 +1,143 @@
+.date {
+  font-size: 200px;
+  font-weight: 500;
+  line-height: 1.2;
+  @media (max-width: 768px) {
+    font-size: 50px;
+  }
+}
+
+.start-animation {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.logo {
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom {
+  padding-bottom: 200px;
+}
+
+.parraf-letter-space {
+  letter-spacing: 0.4em;
+}
+
+.font-900 {
+  font-weight: 900;
+}
+
+.text2 {
+  font-size: 45px;
+  line-height: 0.8;
+  text-align: center;
+}
+
+.fade-in {
+  animation: fadeIn 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.hide {
+  animation: hide 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.show {
+  animation: show 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+  }
+  to {
+    width: 2000px;
+    height: 2000px;
+  }
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid white !important;
+}
+
+.background {
+  background-color: black;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  @media (max-width: 526px) {
+    background-size: cover;
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    display: flex;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    display: none;
+  }
+  to {
+    opacity: 1;
+    display: flex;
+  }
+}
+
+.but {
+  top: 80%;
+  min-height: 150px;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid white;
+  border-top: 10px solid black;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+}

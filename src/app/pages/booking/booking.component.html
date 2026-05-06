@@ -1,0 +1,199 @@
+@if(step() === 1) {
+<div class="w-full min-h-screen bg-black">
+  <div class="slider-container relative w-full overflow-x-hidden">
+    <button
+      (click)="goToEnglish()"
+      class="absolute top-4 right-4 z-10 bg-white text-black px-4 py-2 rounded-md kanit font-light opacity-80"
+    >
+      English
+    </button>
+    <img
+      *ngFor="let imageSrc of images; let i = index"
+      [src]="imageSrc"
+      [ngClass]="{ active: i === currentIndex }"
+      alt="Imagen del slider número {{ i + 1 }}"
+    />
+    <h1
+      class="playfair-display font-bold text-6xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
+    >
+      Casa Garbo
+    </h1>
+  </div>
+
+  <div class="bg-black relative">
+    <div
+      class="flex flex-col lg:items-center items-start justify-center mt-5 px-5"
+    >
+      <h1
+        class="raleway text-4xl font-bold font-light lg:text-center text-left text-white"
+      >
+        Reserva <br />
+        tu experiencia
+      </h1>
+    </div>
+
+    <form
+      [formGroup]="form"
+      class="max-w-6xl mx-auto px-5 py-8 bg-black text-white relative z-10"
+    >
+      <!-- Primera fila de campos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <input
+          type="text"
+          pInputText
+          formControlName="name"
+          placeholder="Nombre"
+          class="w-full playfair-display"
+        />
+        <select
+          formControlName="zone"
+          class="w-full playfair-display bg-transparent border border-white text-white rounded-md px-3 py-2"
+        >
+          <option value="" disabled>Elegir zona</option>
+          <option *ngFor="let z of zoneOptions" [value]="z.value">
+            {{ z.label }}
+          </option>
+        </select>
+        <input
+          type="text"
+          pInputText
+          formControlName="email"
+          placeholder="Email"
+          class="w-full playfair-display"
+        />
+        <input
+          type="text"
+          pInputText
+          formControlName="phone"
+          placeholder="Teléfono"
+          class="w-full playfair-display"
+        />
+      </div>
+
+      <!-- Segunda fila de campos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <select
+          formControlName="guests"
+          class="w-full playfair-display bg-transparent border border-white text-white rounded-md px-3 py-2"
+        >
+          <option value="0" disabled>Invitados</option>
+          <option *ngFor="let opt of optionInvites" [value]="opt.value">
+            {{ opt.label }}
+          </option>
+        </select>
+        <input
+          type="date"
+          placeholder="Día"
+          formControlName="date"
+          [min]="todayStr"
+          class="w-full playfair-display bg-transparent border border-white text-white rounded-md px-3 py-2"
+        />
+        <select
+          formControlName="time"
+          class="w-full playfair-display bg-transparent border border-white text-white rounded-md px-3 py-2"
+        >
+          <option value="" disabled>Hora</option>
+          <option *ngFor="let opt of optionTime" [value]="opt.value">
+            {{ opt.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Checkbox para autorización de comunicaciones -->
+      <div class="w-full flex justify-center items-center mt-6">
+        <div class="max-w-md flex items-center gap-3">
+          <input
+            type="checkbox"
+            formControlName="authorizeCommunications"
+            id="authorizeCommunications"
+            class="accent-white w-4 h-4"
+          />
+          <label
+            for="authorizeCommunications"
+            class="text-white text-sm raleway cursor-pointer"
+          >
+            Autorizo el envío de comunicaciones diversas e invitaciones a
+            eventos especiales
+          </label>
+        </div>
+      </div>
+
+      <!-- Botón de reserva -->
+      <div class="w-full flex justify-center items-center mt-6">
+        <button
+          (click)="reserve()"
+          class="max-w-md w-full bg-white text-black border border-white rounded-md playfair-display font-light py-2 hover:bg-gray-100 transition-colors duration-300"
+        >
+          Reservar
+        </button>
+      </div>
+    </form>
+
+    @if (noTimeAvailability) {
+    <div class="flex justify-center items-center px-5 mt-4">
+      <div
+        class="max-w-2xl bg-white/10 border border-white/30 rounded-md p-4 text-white text-sm raleway"
+      >
+        Actualmente no hay horarios de reserva online disponibles para la fecha
+        elegida (las reservas son hasta 23:30). Si deseas otra hora o hay
+        inconvenientes, contáctanos por WhatsApp.
+      </div>
+    </div>
+    } @if (guestsExceedCapacity) {
+    <div class="flex justify-center items-center px-5 mt-2">
+      <div
+        class="max-w-2xl bg-red-500/20 border border-red-400/40 rounded-md p-3 text-white text-sm raleway"
+      >
+        La cantidad de invitados supera la capacidad de la zona seleccionada
+        (+20% permitido). Reduce invitados o elige otra zona.
+      </div>
+    </div>
+    }
+
+    <div class="social flex justify-center items-center gap-3 p-5 bg-black">
+      <i (click)="openInstagram()" class="pi pi-instagram text-white"></i>
+      <i (click)="openWhatsapp()" class="pi pi-whatsapp text-white"></i>
+      <i (click)="openPhone()" class="pi pi-phone text-white"></i>
+    </div>
+
+    <div class="flex justify-center items-center gap-3 px-5 pb-5 bg-black">
+      <a
+        class="max-w-md text-center bg-green-500 hover:bg-green-600 transition-colors text-black rounded-md raleway font-bold py-2 px-4"
+        href="https://wa.me/51997088230"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ¿No te deja reservar lo que deseas? Escríbenos al 51997088230
+      </a>
+    </div>
+  </div>
+
+  <!-- <div class="flex justify-center items-center gap-3 p-5">
+      <button
+        (click)="openCarta()"
+        class="bg-white text-black rounded-md raleway font-bold py-2 px-4"
+      >
+        Ver Carta
+      </button>
+    </div> -->
+</div>
+
+} @if(step() === 2) {
+<div
+  class="w-full min-h-screen flex justify-center items-center bg-black bg-cover bg-center bg-no-repeat overflow-x-hidden"
+  [ngStyle]="{
+    'background-image': 'url(/gallery-garbo/1.png)'
+  }"
+>
+  <div
+    class="w-full h-full bg-black opacity-80 absolute top-0 left-0 z-10"
+  ></div>
+  <h1 class="text-center text-4xl font-bold playfair-display text-white z-20">
+    Gracias por tu reserva<br />
+    <span class="text-white text-3xl font-light raleway text-white z-20">
+      Te esperamos el <br />
+      {{ form.value.date | date : "fullDate" : "" : "es" }}
+    </span>
+  </h1>
+</div>
+}

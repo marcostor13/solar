@@ -1,0 +1,99 @@
+.images-container {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.image-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+}
+.show-image {
+  opacity: 1;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.hide-image {
+  opacity: 0;
+  animation: fadeOut 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.cont {
+  z-index: 3;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.bg-strega {
+  background-color: #c20071;
+}
+
+.background-opacity {
+  z-index: 3;
+}
+
+.logos {
+  z-index: 4;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  img {
+    height: 100%;
+    object-fit: contain;
+    margin-bottom: 20vh !important;
+  }
+  .ultima {
+    margin-bottom: 50vh !important;
+  }
+}
+
+.reser {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 40px;
+  //   background-color: #000;
+  display: flex;
+  justify-content: center;
+  .reserva {
+    width: 120px;
+    text-align: center;
+    // background-color: #c20071;
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
