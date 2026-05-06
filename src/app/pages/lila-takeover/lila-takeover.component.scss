@@ -1,58 +1,98 @@
-.fade-in {
-  animation: fadeIn 600ms ease-in-out;
-  animation-fill-mode: forwards;
+.background-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  transition: background-image 0.4s ease-in-out;
+  cursor: pointer;
+
+  /* Mobile */
+  background-image: url("/lila-takeover/mobile.png");
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    background-image: url("/lila-takeover/tablet.png");
+  }
+
+  /* Desktop */
+  @media (min-width: 1280px) {
+    background-image: url("/lila-takeover/desktop.png");
+  }
 }
 
-@keyframes fadeIn {
-  from {
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-  }
-  to {
-    width: 2000px;
-    height: 2000px;
+.form-container {
+  background-color: black;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+
+  h1 {
+    font-weight: 300;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
   }
 }
 
 input {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.05);
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  margin-bottom: 8px;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
   width: 100%;
-}
+  transition: all 0.3s ease;
+  font-family: inherit;
 
-:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-bottom: 1px solid white !important;
-}
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 
-.background {
-  background-color: black;
-  background-position: center;
-  background-repeat: no-repeat;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .but {
+  position: absolute;
   top: 60%;
-  min-height: 250px;
+  width: 100%;
+  min-height: 300px;
 }
 
 .loader {
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
+  border: 3px solid #FFF;
+  border-bottom-color: transparent;
   border-radius: 50%;
-  border: 10px solid white;
-  border-top: 10px solid black;
-  animation: spin 1s linear infinite;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
-@keyframes spin {
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.native-loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  animation: rotation 1s linear infinite;
 }
