@@ -3,7 +3,7 @@ import os
 
 # --- INGRESA AQUÍ TU TEXTO ---
 # Cambia el texto de esta variable por lo que quieras que contenga el QR.
-texto_para_qr = "https://payasoloco.gruposolar.pe/payaso-loco"
+texto_para_qr = "https://gruposolar.pe/wp-content/uploads/2026/05/payaso-loco-wifi.jpg"
 
 # --- NOMBRE DEL ARCHIVO DE SALIDA ---
 # El archivo se guardará con este nombre en la misma carpeta que el script.

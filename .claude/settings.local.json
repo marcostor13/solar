@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-ChildItem | Select-Object Name, Length | Format-Table -AutoSize\")"
+    ]
+  }
+}
