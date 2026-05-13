@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"Get-ChildItem | Select-Object Name, Length | Format-Table -AutoSize\")"
+      "Bash(powershell -Command \"Get-ChildItem | Select-Object Name, Length | Format-Table -AutoSize\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\Marcos\\\\Proyectos\\\\Solar\\\\solar\" -Recurse -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(Format-Table FullName)"
     ]
   }
 }

@@ -3,7 +3,7 @@ import { provideRouter, withComponentInputBinding, withEnabledBlockingInitialNav
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding(), withEnabledBlockingInitialNavigation()),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
     provideAnimationsAsync(),
 
     providePrimeNG({
