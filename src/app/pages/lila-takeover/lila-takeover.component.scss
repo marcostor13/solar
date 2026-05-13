@@ -27,6 +27,7 @@
 .form-container {
   background-color: black;
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -42,15 +43,20 @@
 }
 
 input {
+  -webkit-appearance: none;
+  appearance: none;
   background-color: rgba(255, 255, 255, 0.05);
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
   color: white;
+  font-size: 16px; /* prevents iOS auto-zoom on focus */
   margin-bottom: 1.5rem;
   padding: 0.75rem;
   width: 100%;
   transition: all 0.3s ease;
   font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 
   &:focus {
     outline: none;
@@ -60,6 +66,36 @@ input {
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.date-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  input[type="date"] {
+    margin-bottom: 0;
+
+    /* hide "mm/dd/yyyy" native text on desktop when empty */
+    &:not(.has-value) {
+      color: transparent;
+    }
+
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+
+  .date-placeholder {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    font-family: inherit;
+    pointer-events: none;
   }
 }
 

@@ -24,13 +24,16 @@
     <input placeholder="Teléfono" type="tel" formControlName="phone" />
     <input placeholder="Email" type="email" formControlName="email" />
 
-    <input
-      #birthday2
-      (click)="changeType()"
-      placeholder="Cumpleaños"
-      type="text"
-      formControlName="birthday"
-    />
+    <div class="date-field">
+      <input
+        type="date"
+        formControlName="birthday"
+        [class.has-value]="birthday?.value"
+      />
+      @if (!birthday?.value) {
+        <span class="date-placeholder">Cumpleaños</span>
+      }
+    </div>
     <input
       placeholder="Invitado por"
       type="text"

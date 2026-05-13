@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -17,32 +17,33 @@ export class LilaTakeoverComponent {
   isLoading = signal<boolean>(false);
   completed = signal<boolean>(false);
   step = signal<number>(1);
-  @ViewChild('birthday2') birthday2!: ElementRef;
 
   form = this.fb.group({
     name: ['', [Validators.required]],
     address: ['', [Validators.required]],
     phone: ['', [Validators.required]],
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     birthday: ['', [Validators.required]],
     favoriteDrink: [''],
   });
 
   saveSolar() {
+    if (this.form.invalid) return;
     this.isLoading.set(true);
     const data: ISolarForm = {
       ...this.form.value as ISolarForm,
       dateOfBirth: this.form.value.birthday || '',
       local: 'lila-takeover',
     };
-    this.solarService.saveSolar(data).subscribe(() => {
-      this.isLoading.set(false);
-      this.completed.set(true);
+    this.solarService.saveSolar(data).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.completed.set(true);
+      },
+      error: () => {
+        this.isLoading.set(false);
+      },
     });
-  }
-
-  changeType() {
-    this.birthday2.nativeElement.type = 'date';
   }
 
   get name() { return this.form.get('name'); }
