@@ -53,3 +53,7 @@ env.txt
 *.mp3
 *.mp4
 *.mov
+
+# Local Netlify folder
+.netlify
+.deno.lock
