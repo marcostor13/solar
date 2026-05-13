@@ -1,65 +1,118 @@
 @if(completed()) {
-<div class="bg-black h-screen w-screen flex justify-center items-center">
-  <p class="text-white text-2xl text-center raleway mt-10 p-5 leading-relaxed">
-    Ya estás registrado en la<br />
-    <span class="font-bold">lista para Lila take over</span><br />
-    el miércoles 14 de Mayo.
-  </p>
+<div class="lila-completed">
+  <div class="completed-content">
+    <div class="lila-badge">LILA TAKEOVER</div>
+    <p class="completed-date">14 · 05</p>
+    <p class="completed-text">
+      Ya estás en la lista<br />
+      <span>LILA TAKEOVER</span><br />
+      miércoles 14 de Mayo.
+    </p>
+    <div class="completed-divider"></div>
+    <p class="completed-sub">Te esperamos en Graffitería</p>
+  </div>
 </div>
-} @else { @if(step() === 1){
+} @else {
 
+@if(step() === 1){
 <div class="background-container" (click)="step.set(2)">
   <div class="but"></div>
 </div>
+}
 
-} @if(step() === 2){
-
+@if(step() === 2){
 <div class="form-container">
-  <h1 class="text-white text-2xl text-center raleway">
-    RESERVA TU EXPERIENCIA
-  </h1>
-  <form [formGroup]="form" class="flex flex-col lg:w-1/3 w-full max-w-xl">
-    <input placeholder="Nombre completo" type="text" formControlName="name" />
-    <input placeholder="Dirección" type="text" formControlName="address" />
-    <input placeholder="Teléfono" type="tel" formControlName="phone" />
-    <input placeholder="Email" type="email" formControlName="email" />
 
-    <div class="date-field">
+  <div class="form-header">
+    <p class="form-brand">GRAFFITERÍA</p>
+    <h1 class="form-title">LILA<br>TAKEOVER</h1>
+    <p class="form-date">14 · 05</p>
+  </div>
+
+  <form [formGroup]="form" class="lila-form">
+
+    <div class="lila-input-group">
       <input
+        class="lila-input"
+        placeholder="Nombre completo"
+        type="text"
+        formControlName="name"
+        [class.error]="name?.invalid && name?.touched"
+      />
+    </div>
+
+    <div class="lila-input-group">
+      <input
+        class="lila-input"
+        placeholder="Dirección"
+        type="text"
+        formControlName="address"
+        [class.error]="address?.invalid && address?.touched"
+      />
+    </div>
+
+    <div class="lila-input-group">
+      <input
+        class="lila-input"
+        placeholder="Teléfono"
+        type="tel"
+        formControlName="phone"
+        [class.error]="phone?.invalid && phone?.touched"
+      />
+    </div>
+
+    <div class="lila-input-group">
+      <input
+        class="lila-input"
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        [class.error]="email?.invalid && email?.touched"
+      />
+    </div>
+
+    <div class="lila-input-group date-field">
+      <input
+        class="lila-input"
         type="date"
         formControlName="birthday"
         [class.has-value]="birthday?.value"
+        [class.error]="birthday?.invalid && birthday?.touched"
       />
       @if (!birthday?.value) {
         <span class="date-placeholder">Cumpleaños</span>
       }
     </div>
-    <input
-      placeholder="Invitado por"
-      type="text"
-      formControlName="favoriteDrink"
-    />
+
+    <div class="lila-input-group">
+      <input
+        class="lila-input"
+        placeholder="Invitado por"
+        type="text"
+        formControlName="favoriteDrink"
+      />
+    </div>
 
     <button
       (click)="saveSolar()"
       type="button"
-      class="bg-white text-black px-8 py-4 rounded-full font-bold text-xl raleway mt-8 hover:bg-gray-200 transition-colors uppercase tracking-widest flex items-center justify-center"
+      class="lila-btn"
       [disabled]="isLoading() || form.invalid"
     >
       @if(isLoading()) {
         <span class="native-loader"></span>
-      } 
-      <span>{{ isLoading() ? 'REGISTRANDO...' : 'REGISTRARSE' }}</span>
+      }
+      <span>{{ isLoading() ? 'REGISTRANDO...' : 'REGÍSTRATE AQUÍ' }}</span>
     </button>
+
   </form>
 </div>
+}
 
-} } @if(isLoading() && step() === 1) {
+}
 
-<div
-  class="opacity-50 fixed top-0 left-0 bg-black h-screen w-screen flex justify-center items-center z-50"
->
+@if(isLoading() && step() === 1) {
+<div class="full-loader">
   <div class="loader"></div>
 </div>
-
 }

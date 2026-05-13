@@ -1,8 +1,6 @@
 export const environment = {
   production: false,
   api: {
-    solarUrl: 'https://landings-back.marcostorresalarcon.com/solar',
+    solarUrl: 'http://localhost:8888/.netlify/functions/solar',
   },
 } as const;
-
-

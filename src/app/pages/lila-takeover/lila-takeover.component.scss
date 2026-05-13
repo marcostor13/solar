@@ -1,7 +1,37 @@
+/* ─── palette ──────────────────────────────────────────────── */
+$lila-darkest:  #07031a;
+$lila-deepest:  #0a041e;
+$lila-deep:     #120836;
+$lila-mid:      #2a0f6b;
+$lila-accent:   #6d28d9;
+$lila-glow:     #9d5ef6;
+$lila-border:   rgba(157, 94, 246, 0.4);
+$white:         #ffffff;
+$white-dim:     rgba(255, 255, 255, 0.55);
+$white-faint:   rgba(255, 255, 255, 0.07);
+
+/* ─── shared mixin: ripple background ──────────────────────── */
+@mixin ripple-bg {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 22px,
+      rgba(109, 40, 217, 0.06) 22px,
+      rgba(109, 40, 217, 0.06) 23px
+    );
+    pointer-events: none;
+  }
+}
+
+/* ─── background image (step 1) ─────────────────────────────── */
 .background-container {
   height: 100vh;
   width: 100vw;
-  background-color: black;
+  background-color: $lila-darkest;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10,73 +40,146 @@
   transition: background-image 0.4s ease-in-out;
   cursor: pointer;
 
-  /* Mobile */
-  background-image: url("/lila-takeover/mobile.png");
+  background-image: url('/lila-takeover/mobile.png');
 
-  /* Tablet */
   @media (min-width: 768px) {
-    background-image: url("/lila-takeover/tablet.png");
+    background-image: url('/lila-takeover/tablet.png');
   }
-
-  /* Desktop */
   @media (min-width: 1280px) {
-    background-image: url("/lila-takeover/desktop.png");
+    background-image: url('/lila-takeover/desktop.png');
   }
 }
 
+.but {
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  min-height: 300px;
+}
+
+/* ─── form container ─────────────────────────────────────────── */
 .form-container {
-  background-color: black;
   min-height: 100vh;
   min-height: 100dvh;
   width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 3rem;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    #2d1060 0%,
+    $lila-deepest 55%,
+    $lila-darkest 100%
+  );
+  position: relative;
+  overflow: hidden;
 
-  h1 {
-    font-weight: 300;
-    letter-spacing: 0.2rem;
-    margin-bottom: 2rem;
+  @include ripple-bg;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109, 40, 217, 0.16) 0%, transparent 70%);
+    pointer-events: none;
   }
 }
 
-input {
+/* ─── form header ────────────────────────────────────────────── */
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-brand {
+  font-size: 0.65rem;
+  letter-spacing: 0.45em;
+  color: $white-dim;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.form-title {
+  font-size: clamp(2.8rem, 10vw, 5rem);
+  font-weight: 900;
+  color: $white;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+  text-shadow: 0 0 40px rgba(157, 94, 246, 0.5);
+}
+
+.form-date {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: $lila-glow;
+  text-transform: uppercase;
+}
+
+/* ─── form ───────────────────────────────────────────────────── */
+.lila-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── input group ────────────────────────────────────────────── */
+.lila-input-group {
+  position: relative;
+  margin-bottom: 1.1rem;
+}
+
+/* ─── input ──────────────────────────────────────────────────── */
+.lila-input {
   -webkit-appearance: none;
   appearance: none;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0;
-  color: white;
-  font-size: 16px; /* prevents iOS auto-zoom on focus */
-  margin-bottom: 1.5rem;
-  padding: 0.75rem;
+  display: block;
   width: 100%;
-  transition: all 0.3s ease;
+  padding: 0.85rem 1rem;
+  background: $white-faint;
+  border: 1px solid $lila-border;
+  border-radius: 8px;
+  color: $white;
+  font-size: 16px;
   font-family: inherit;
+  letter-spacing: 0.03em;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
   -webkit-tap-highlight-color: transparent;
-
-  &:focus {
-    outline: none;
-    border-bottom: 1px solid white;
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  outline: none;
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: $white-dim;
+  }
+
+  &:focus {
+    border-color: $lila-glow;
+    background: rgba(109, 40, 217, 0.15);
+    box-shadow: 0 0 0 3px rgba(157, 94, 246, 0.2), 0 0 16px rgba(157, 94, 246, 0.1);
+  }
+
+  &.error {
+    border-color: rgba(248, 113, 113, 0.7);
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
   }
 }
 
+/* ─── date field ─────────────────────────────────────────────── */
 .date-field {
-  position: relative;
-  margin-bottom: 1.5rem;
-
-  input[type="date"] {
-    margin-bottom: 0;
-
-    /* hide "mm/dd/yyyy" native text on desktop when empty */
+  input[type='date'] {
     &:not(.has-value) {
       color: transparent;
     }
@@ -90,45 +193,163 @@ input {
 
   .date-placeholder {
     position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    top: 0.85rem;
+    left: 1rem;
+    color: $white-dim;
     font-size: 16px;
     font-family: inherit;
     pointer-events: none;
   }
 }
 
-.but {
-  position: absolute;
-  top: 60%;
+/* ─── CTA button ─────────────────────────────────────────────── */
+.lila-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding: 1rem 2rem;
   width: 100%;
-  min-height: 300px;
+  border-radius: 9999px;
+  background: $white;
+  color: $lila-deep;
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: inherit;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(157, 94, 246, 0.35);
+
+  &:hover:not(:disabled) {
+    background: #f0e8ff;
+    box-shadow: 0 6px 32px rgba(157, 94, 246, 0.55);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
+/* ─── completed screen ───────────────────────────────────────── */
+.lila-completed {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 30%,
+    #2d1060 0%,
+    $lila-deepest 60%,
+    $lila-darkest 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  @include ripple-bg;
+}
+
+.completed-content {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lila-badge {
+  display: inline-block;
+  padding: 0.3rem 1.2rem;
+  border: 1px solid $lila-border;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: $lila-glow;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.completed-date {
+  font-size: 3rem;
+  font-weight: 900;
+  color: $lila-glow;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 0 30px rgba(157, 94, 246, 0.6);
+}
+
+.completed-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: $white;
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+
+  span {
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+}
+
+.completed-divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $lila-glow, transparent);
+  margin: 0 auto 1.25rem;
+}
+
+.completed-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.38em;
+  color: $white-dim;
+  text-transform: uppercase;
+}
+
+/* ─── full-screen loader (step 1) ────────────────────────────── */
+.full-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* ─── spinners ───────────────────────────────────────────────── */
 .loader {
   width: 48px;
   height: 48px;
-  border: 3px solid #FFF;
+  border: 3px solid $white;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  animation: spin 1s linear infinite;
 }
 
 .native-loader {
-  width: 20px;
-  height: 20px;
-  border: 2px solid black;
+  width: 18px;
+  height: 18px;
+  border: 2px solid $lila-deep;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 10px;
-  animation: rotation 1s linear infinite;
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
