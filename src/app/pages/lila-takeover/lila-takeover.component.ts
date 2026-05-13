@@ -28,7 +28,14 @@ export class LilaTakeoverComponent {
   });
 
   saveSolar() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      const invalidFields = Object.entries(this.form.controls)
+        .filter(([, ctrl]) => ctrl.invalid)
+        .map(([key]) => key)
+        .join(', ');
+      alert(`Formulario inválido. Campos con error: ${invalidFields}`);
+      return;
+    }
     this.isLoading.set(true);
     const data: ISolarForm = {
       ...this.form.value as ISolarForm,
@@ -40,8 +47,12 @@ export class LilaTakeoverComponent {
         this.isLoading.set(false);
         this.completed.set(true);
       },
-      error: () => {
+      error: (err) => {
         this.isLoading.set(false);
+        const status = err?.status ?? 'desconocido';
+        const message = err?.message ?? 'sin mensaje';
+        const errorDetail = err?.error ? JSON.stringify(err.error) : 'sin detalle';
+        alert(`Error al registrar.\nStatus: ${status}\nMensaje: ${message}\nDetalle: ${errorDetail}`);
       },
     });
   }
