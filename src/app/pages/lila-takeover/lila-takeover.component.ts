@@ -49,10 +49,12 @@ export class LilaTakeoverComponent {
       },
       error: (err) => {
         this.isLoading.set(false);
-        const status = err?.status ?? 'desconocido';
-        const message = err?.message ?? 'sin mensaje';
-        const errorDetail = err?.error ? JSON.stringify(err.error) : 'sin detalle';
-        alert(`Error al registrar.\nStatus: ${status}\nMensaje: ${message}\nDetalle: ${errorDetail}`);
+        const backendMsg = err?.error?.error;
+        if (err?.status === 409) {
+          alert('Ya existe un registro con este email para este evento.');
+        } else {
+          alert(backendMsg ?? 'Error al registrar. Intenta de nuevo.');
+        }
       },
     });
   }

@@ -56,6 +56,14 @@ exports.handler = async (event) => {
     };
   }
 
+  if (!MONGO_URI) {
+    return {
+      statusCode: 503,
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ error: 'Variable MONGO_URI no configurada' }),
+    };
+  }
+
   try {
     const db = await getDb();
     const collection = db.collection('registrations');
@@ -90,7 +98,17 @@ exports.handler = async (event) => {
       body: JSON.stringify({ success: true }),
     };
   } catch (err) {
-    console.error('Error en handler:', err);
+    const code = err?.code ?? '';
+    console.error('Error en handler:', err.message);
+
+    if (code === 'ECONNREFUSED' || code === 'ENOTFOUND' || err.message?.includes('querySrv')) {
+      return {
+        statusCode: 503,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'No se pudo conectar a la base de datos. Verifica el IP Whitelist en MongoDB Atlas.' }),
+      };
+    }
+
     return {
       statusCode: 500,
       headers: CORS_HEADERS,
