@@ -1,5 +1,10 @@
 const { MongoClient } = require('mongodb');
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
+if (process.env.NODE_DNS_SERVERS) {
+  dns.setServers(process.env.NODE_DNS_SERVERS.split(','));
+}
 
 const MONGO_URI = process.env.MONGO_URI;
 const USER_EMAIL = process.env.USER_EMAIL;
@@ -10,7 +15,12 @@ let cachedClient = null;
 async function getDb() {
   if (!cachedClient) {
     cachedClient = new MongoClient(MONGO_URI);
-    await cachedClient.connect();
+    try {
+      await cachedClient.connect();
+    } catch (err) {
+      cachedClient = null;
+      throw err;
+    }
   }
   return cachedClient.db();
 }
@@ -18,13 +28,65 @@ async function getDb() {
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Content-Type': 'application/json',
 };
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+  }
+
+  if (event.httpMethod === 'GET') {
+    const params = event.queryStringParameters || {};
+    const key = params.key || '';
+    const local = params.local || '';
+
+    const adminKey = process.env.ADMIN_KEY;
+    if (!adminKey || key !== adminKey) {
+      return {
+        statusCode: 401,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'No autorizado' }),
+      };
+    }
+
+    if (!local) {
+      return {
+        statusCode: 400,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Falta el parámetro local' }),
+      };
+    }
+
+    try {
+      const db = await getDb();
+      const registrations = await db
+        .collection('registrations')
+        .find({ local })
+        .sort({ createdAt: -1 })
+        .toArray();
+      return {
+        statusCode: 200,
+        headers: CORS_HEADERS,
+        body: JSON.stringify(registrations),
+      };
+    } catch (err) {
+      console.error('Error GET registrations:', err.message);
+      const code = err?.code ?? '';
+      if (code === 'ECONNREFUSED' || code === 'ENOTFOUND' || err.message?.includes('querySrv')) {
+        return {
+          statusCode: 503,
+          headers: CORS_HEADERS,
+          body: JSON.stringify({ error: 'No se pudo conectar a la base de datos. Verifica el IP Whitelist en MongoDB Atlas.' }),
+        };
+      }
+      return {
+        statusCode: 500,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Error al obtener datos' }),
+      };
+    }
   }
 
   if (event.httpMethod !== 'POST') {

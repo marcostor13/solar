@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISolarForm } from '../../interfaces/solar-form.interface';
+import { IRegistration } from '../../../lila-takeover-dashboard/interfaces/registration.interface';
 import { environment } from '../../../../../environments/environment';
 
 @Injectable({
@@ -14,5 +15,9 @@ export class SolarService {
 
   saveSolar(data: ISolarForm): Observable<unknown> {
     return this.http.post(this.apiUrl, data);
+  }
+
+  getRegistrations(local: string, key: string): Observable<IRegistration[]> {
+    return this.http.get<IRegistration[]>(`${this.apiUrl}?local=${local}&key=${encodeURIComponent(key)}`);
   }
 }

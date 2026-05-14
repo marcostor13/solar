@@ -23,11 +23,16 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { Garage2Component } from './pages/garage2/garage2.component';
 import { PayasoLocoPageComponent } from './pages/payaso-loco/payaso-loco.page';
 import { LilaTakeoverComponent } from './pages/lila-takeover/lila-takeover.component';
+import { LilaTakeoverDashboardComponent } from './pages/lila-takeover-dashboard/lila-takeover-dashboard.component';
 export const routes: Routes = [
 
     {
         path: 'lila-takeover',
         component: LilaTakeoverComponent
+    },
+    {
+        path: 'lila-takeover-dashboard',
+        component: LilaTakeoverDashboardComponent
     },
     {
         path: 'disco-pilsen',

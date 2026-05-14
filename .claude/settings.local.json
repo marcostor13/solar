@@ -9,7 +9,8 @@
       "Bash(node -e \"const {MongoClient}=require\\('mongodb'\\); console.log\\('mongodb OK'\\)\")",
       "Bash(node -e \"const n=require\\('nodemailer'\\); console.log\\('nodemailer OK'\\)\")",
       "Bash(node -e \"require\\('./netlify/functions/solar'\\); console.log\\('function loads OK'\\)\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(npx ng *)"
     ]
   }
 }
