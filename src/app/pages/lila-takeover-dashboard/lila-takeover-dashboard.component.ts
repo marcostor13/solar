@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import type { Workbook } from 'exceljs';
 import { SolarService } from '../strega/services/solar/solar.service';
 import { IRegistration } from './interfaces/registration.interface';
 
@@ -87,8 +88,10 @@ export class LilaTakeoverDashboardComponent {
   }
 
   async exportExcel() {
-    const ExcelJS = await import('exceljs');
-    const wb = new ExcelJS.Workbook();
+    const mod = await import('exceljs');
+    // CommonJS interop: esbuild wraps CJS exports under .default
+    const ExcelJS = (mod as any).default ?? mod;
+    const wb: Workbook = new ExcelJS.Workbook();
     wb.creator = 'LILA TAKEOVER Dashboard';
     wb.created = new Date();
 
