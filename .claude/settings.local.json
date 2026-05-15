@@ -10,7 +10,8 @@
       "Bash(node -e \"const n=require\\('nodemailer'\\); console.log\\('nodemailer OK'\\)\")",
       "Bash(node -e \"require\\('./netlify/functions/solar'\\); console.log\\('function loads OK'\\)\")",
       "Bash(node -e ' *)",
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "Bash(Select-String \"xlsx|exceljs|sheetjs\" -SimpleMatch)"
     ]
   }
 }

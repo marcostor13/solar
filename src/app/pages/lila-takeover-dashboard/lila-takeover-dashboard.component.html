@@ -65,8 +65,8 @@
           <option [value]="opt">{{ opt }}</option>
         }
       </select>
-      <button class="export-btn" (click)="exportCsv()" [disabled]="filtered().length === 0">
-        Exportar CSV
+      <button class="export-btn" (click)="exportExcel()" [disabled]="filtered().length === 0">
+        Exportar Excel
       </button>
     </div>
 

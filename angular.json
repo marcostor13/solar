@@ -55,7 +55,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "qrcode",
-              "jsqr"
+              "jsqr",
+              "exceljs"
             ]
           },
           "configurations": {
