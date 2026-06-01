@@ -20,7 +20,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(ffmpeg -i 'C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/Garbo 06.05 \\(1\\).MOV' -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k -movflags +faststart C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/garbo.mp4 -y)"
+      "Bash(ffmpeg -i 'C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/Garbo 06.05 \\(1\\).MOV' -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k -movflags +faststart C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/garbo.mp4 -y)",
+      "Bash(xargs cat)"
     ]
   }
 }
