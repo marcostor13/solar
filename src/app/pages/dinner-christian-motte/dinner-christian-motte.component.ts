@@ -67,7 +67,7 @@ export class DinnerChristianMotteComponent implements OnInit {
     if (code && PROMOTERS[code]) {
       const name = PROMOTERS[code];
       this.promoLocked.set(name);
-      this.form.get('favoriteDrink')?.setValue(name);
+      this.form.get('favoriteDrink')?.setValue(`Referido por: ${name}`);
     }
   }
 
