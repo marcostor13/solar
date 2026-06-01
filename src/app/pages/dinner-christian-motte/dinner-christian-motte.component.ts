@@ -33,7 +33,12 @@ export class DinnerChristianMotteComponent {
 
   startVideo() {
     this.videoStarted.set(true);
-    this.videoEl.nativeElement.play().catch(() => this.videoEnded.set(true));
+    const video = this.videoEl.nativeElement;
+    video.play().catch(() => {
+      // Fallback: browser blocked audio despite gesture — play muted
+      video.muted = true;
+      video.play().catch(() => this.videoEnded.set(true));
+    });
   }
 
   onVideoEnded() {
