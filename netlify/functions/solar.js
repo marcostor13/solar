@@ -153,6 +153,7 @@ exports.handler = async (event) => {
     });
 
     await sendNotification({ name, email: normalizedEmail, phone, address, dateOfBirth, local, favoriteDrink });
+    sendConfirmation({ name, email: normalizedEmail, local, favoriteDrink }).catch(() => {});
 
     return {
       statusCode: 201,
@@ -178,6 +179,107 @@ exports.handler = async (event) => {
     };
   }
 };
+
+const EVENT_LABELS = {
+  'dinner-christian-motte': 'Dinner Christian Motte',
+  'lila-takeover':          'Lila Takeover',
+};
+
+function eventLabel(local) {
+  return EVENT_LABELS[local] || local.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+async function sendConfirmation(data) {
+  if (!USER_EMAIL || !PASSWORD_EMAIL) return;
+
+  const label = eventLabel(data.local);
+  const logoUrl = 'https://graffiteria.gruposolar.pe/galery-garbo/casa.png';
+  const guestRow = data.favoriteDrink
+    ? `<tr>
+         <td style="padding:10px 14px;border-top:1px solid rgba(157,94,246,0.15);color:rgba(255,255,255,0.45);font-size:11px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap">Invitado por</td>
+         <td style="padding:10px 14px;border-top:1px solid rgba(157,94,246,0.15);color:#ffffff;font-size:14px">${data.favoriteDrink}</td>
+       </tr>`
+    : '';
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0d0d0d;font-family:Arial,Helvetica,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#0d0d0d;padding:40px 16px">
+  <tr><td>
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto;background:#07031a;border-radius:16px;overflow:hidden;border:1px solid rgba(157,94,246,0.2)">
+
+      <!-- logo header -->
+      <tr>
+        <td style="padding:36px 40px 28px;text-align:center;background:#0a041e">
+          <img src="${logoUrl}" alt="Casa Garbo" height="56" style="display:block;margin:0 auto;max-width:180px;object-fit:contain">
+        </td>
+      </tr>
+
+      <!-- purple divider -->
+      <tr>
+        <td style="height:1px;background:linear-gradient(90deg,transparent,#9d5ef6 50%,transparent)"></td>
+      </tr>
+
+      <!-- body -->
+      <tr>
+        <td style="padding:40px">
+
+          <p style="margin:0 0 10px;color:rgba(255,255,255,0.4);font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase">Confirmación de registro</p>
+          <h1 style="margin:0 0 6px;color:#ffffff;font-size:26px;font-weight:900;letter-spacing:1px;line-height:1.1">${label.toUpperCase()}</h1>
+          <p style="margin:0 0 36px;color:#9d5ef6;font-size:13px;font-weight:700;letter-spacing:4px">CASA GARBO</p>
+
+          <p style="margin:0 0 32px;color:rgba(255,255,255,0.75);font-size:15px;line-height:1.8">
+            Hola <strong style="color:#ffffff;font-weight:700">${data.name}</strong>,<br>
+            tu registro ha sido confirmado.<br>
+            <span style="color:rgba(255,255,255,0.55)">Te esperamos en Casa Garbo.</span>
+          </p>
+
+          <!-- detail table -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(157,94,246,0.07);border:1px solid rgba(157,94,246,0.22);border-radius:10px;border-collapse:collapse;overflow:hidden;margin-bottom:36px">
+            <tr>
+              <td style="padding:10px 14px;color:rgba(255,255,255,0.45);font-size:11px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid rgba(157,94,246,0.15)">Nombre</td>
+              <td style="padding:10px 14px;color:#ffffff;font-size:14px;border-bottom:1px solid rgba(157,94,246,0.15)">${data.name}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;color:rgba(255,255,255,0.45);font-size:11px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap">Email</td>
+              <td style="padding:10px 14px;color:#ffffff;font-size:14px">${data.email}</td>
+            </tr>
+            ${guestRow}
+          </table>
+
+          <!-- footer note -->
+          <p style="margin:0;color:rgba(255,255,255,0.2);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-align:center">
+            Casa Garbo &nbsp;·&nbsp; reservas@casagarbo.pe
+          </p>
+
+        </td>
+      </tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: { user: USER_EMAIL, pass: PASSWORD_EMAIL },
+    });
+
+    await transporter.sendMail({
+      from: `"Casa Garbo" <${USER_EMAIL}>`,
+      to: data.email,
+      subject: `Confirmación — ${label}`,
+      html,
+    });
+  } catch (err) {
+    console.error('Error enviando confirmación (no crítico):', err.message);
+  }
+}
 
 async function sendNotification(data) {
   if (!USER_EMAIL || !PASSWORD_EMAIL) return;
