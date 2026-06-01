@@ -11,7 +11,10 @@
       "Bash(node -e \"require\\('./netlify/functions/solar'\\); console.log\\('function loads OK'\\)\")",
       "Bash(node -e ' *)",
       "Bash(npx ng *)",
-      "Bash(Select-String \"xlsx|exceljs|sheetjs\" -SimpleMatch)"
+      "Bash(Select-String \"xlsx|exceljs|sheetjs\" -SimpleMatch)",
+      "PowerShell(Get-Item \"C:\\\\Marcos\\\\Proyectos\\\\Solar\\\\solar\\\\public\\\\dinner-christian-motte\\\\Garbo 06.05 \\(1\\).MOV\" | Select-Object Name, Length, @{N='SizeMB';E={[Math]::Round\\($_.Length/1MB,1\\)}})",
+      "Bash(ffmpeg -i \"C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/Garbo 06.05 \\(1\\).MOV\" -c:v libx264 -preset fast -crf 23 -an -movflags +faststart \"C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/garbo.mp4\" -y)",
+      "PowerShell(Get-Item \"C:\\\\Marcos\\\\Proyectos\\\\Solar\\\\solar\\\\public\\\\dinner-christian-motte\\\\garbo.mp4\" | Select-Object Name, @{N='SizeMB';E={[Math]::Round\\($_.Length/1MB,1\\)}})"
     ]
   }
 }
