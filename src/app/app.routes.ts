@@ -28,7 +28,11 @@ import { DinnerChristianMotteComponent } from './pages/dinner-christian-motte/di
 export const routes: Routes = [
 
     {
-        path: 'dinner-christian-motte',
+        path: 'chivas-regal',
+        component: DinnerChristianMotteComponent
+    },
+    {
+        path: 'chivas-regal/:promo',
         component: DinnerChristianMotteComponent
     },
     {

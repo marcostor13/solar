@@ -64,6 +64,11 @@
 <div class="form-container">
 
   <div class="form-header">
+    <img
+      class="chivas-logo"
+      src="/dinner-christian-motte/LOGO%20CHIVAS%2018%20A%C3%91OS.png"
+      alt="Chivas Regal 18"
+    />
     <p class="form-brand">GARBO</p>
     <h1 class="form-title">CHRISTIAN<br>MOTTE</h1>
     <p class="form-event">DINNER</p>
@@ -128,9 +133,11 @@
     <div class="dcm-input-group">
       <input
         class="dcm-input"
+        [class.locked]="promoLocked()"
         placeholder="Invitado por"
         type="text"
         formControlName="favoriteDrink"
+        [readonly]="!!promoLocked()"
       />
     </div>
 

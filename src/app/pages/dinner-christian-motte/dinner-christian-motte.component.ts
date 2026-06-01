@@ -1,9 +1,38 @@
-import { Component, inject, signal, ViewChild, ElementRef } from '@angular/core';
+import { Component, inject, signal, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { SolarService } from '../strega/services/solar/solar.service';
 import { ISolarForm } from '../disconnection/interfaces/solar-form.interface';
+
+const PROMOTERS: Record<string, string> = {
+  AZ01: 'Afi Zuñiga',
+  DR02: 'Daniela Roda',
+  TR03: 'Tatiana Rodríguez',
+  XP04: 'Ximena Piaggio',
+  FL05: 'Francesca Lertora',
+  PC06: 'Pierina Cavagnari',
+  CC07: 'Cynthia Castillo',
+  GD08: 'Gisella Diaz',
+  PM09: 'Paola Mendiola',
+  CG10: 'Charo Garcia',
+  GS11: 'Ghya Sifuentes',
+  EB12: 'Eliana Berendson',
+  PP13: 'Paola Parodi',
+  BC14: 'Barbara Canseco',
+  AS15: 'Arianne Strobach',
+  JC16: 'Johana Chanamé',
+  JT17: 'Javi Tolmos',
+  CG18: 'Carolina Guerra',
+  VT19: 'Vivian Távara',
+  KT20: 'Karla Toledo',
+  CM21: 'Christian Motte',
+  AR22: 'Andrea Roman',
+  JO23: 'Julio Olcese',
+  SV24: 'Sandra Valdez',
+  PM25: 'Paola Mendiola',
+};
 
 @Component({
   selector: 'app-dinner-christian-motte',
@@ -11,16 +40,18 @@ import { ISolarForm } from '../disconnection/interfaces/solar-form.interface';
   templateUrl: './dinner-christian-motte.component.html',
   styleUrl: './dinner-christian-motte.component.scss',
 })
-export class DinnerChristianMotteComponent {
+export class DinnerChristianMotteComponent implements OnInit {
   @ViewChild('videoEl') videoEl!: ElementRef<HTMLVideoElement>;
 
   private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
   solarService = inject(SolarService);
   isLoading = signal<boolean>(false);
   completed = signal<boolean>(false);
   step = signal<number>(1);
   videoStarted = signal<boolean>(false);
   videoEnded = signal<boolean>(false);
+  promoLocked = signal<string>('');
 
   form = this.fb.group({
     name: ['', [Validators.required]],
@@ -31,11 +62,19 @@ export class DinnerChristianMotteComponent {
     favoriteDrink: [''],
   });
 
+  ngOnInit() {
+    const code = this.route.snapshot.paramMap.get('promo')?.toUpperCase();
+    if (code && PROMOTERS[code]) {
+      const name = PROMOTERS[code];
+      this.promoLocked.set(name);
+      this.form.get('favoriteDrink')?.setValue(name);
+    }
+  }
+
   startVideo() {
     this.videoStarted.set(true);
     const video = this.videoEl.nativeElement;
     video.play().catch(() => {
-      // Fallback: browser blocked audio despite gesture — play muted
       video.muted = true;
       video.play().catch(() => this.videoEnded.set(true));
     });
@@ -66,7 +105,7 @@ export class DinnerChristianMotteComponent {
     const data: ISolarForm = {
       ...this.form.value as ISolarForm,
       dateOfBirth: this.form.value.birthday || '',
-      local: 'dinner-christian-motte',
+      local: 'chivas-regal',
     };
     this.solarService.saveSolar(data).subscribe({
       next: () => {

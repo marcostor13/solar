@@ -181,6 +181,7 @@ exports.handler = async (event) => {
 };
 
 const EVENT_LABELS = {
+  'chivas-regal':           'Chivas Regal 18 — Dinner Christian Motte',
   'dinner-christian-motte': 'Dinner Christian Motte',
   'lila-takeover':          'Lila Takeover',
 };
