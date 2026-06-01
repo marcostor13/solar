@@ -32,6 +32,7 @@ const PROMOTERS: Record<string, string> = {
   JO23: 'Julio Olcese',
   SV24: 'Sandra Valdez',
   PM25: 'Paola Mendiola',
+  CR26: 'Carmen Rivera-Schreiber',
 };
 
 @Component({
