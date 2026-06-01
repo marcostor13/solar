@@ -24,8 +24,13 @@ import { Garage2Component } from './pages/garage2/garage2.component';
 import { PayasoLocoPageComponent } from './pages/payaso-loco/payaso-loco.page';
 import { LilaTakeoverComponent } from './pages/lila-takeover/lila-takeover.component';
 import { LilaTakeoverDashboardComponent } from './pages/lila-takeover-dashboard/lila-takeover-dashboard.component';
+import { DinnerChristianMotteComponent } from './pages/dinner-christian-motte/dinner-christian-motte.component';
 export const routes: Routes = [
 
+    {
+        path: 'dinner-christian-motte',
+        component: DinnerChristianMotteComponent
+    },
     {
         path: 'lila-takeover',
         component: LilaTakeoverComponent

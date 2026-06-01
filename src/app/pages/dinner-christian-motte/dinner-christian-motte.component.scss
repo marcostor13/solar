@@ -1,0 +1,576 @@
+/* ─── palette ──────────────────────────────────────────────── */
+$dcm-darkest:  #07031a;
+$dcm-deepest:  #0a041e;
+$dcm-deep:     #120836;
+$dcm-mid:      #2a0f6b;
+$dcm-accent:   #6d28d9;
+$dcm-glow:     #9d5ef6;
+$dcm-border:   rgba(157, 94, 246, 0.4);
+$white:        #ffffff;
+$white-dim:    rgba(255, 255, 255, 0.55);
+$white-faint:  rgba(255, 255, 255, 0.07);
+
+/* ─── shared mixin: ripple background ──────────────────────── */
+@mixin ripple-bg {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 22px,
+      rgba(109, 40, 217, 0.06) 22px,
+      rgba(109, 40, 217, 0.06) 23px
+    );
+    pointer-events: none;
+  }
+}
+
+/* ─── video container (step 1) ──────────────────────────────── */
+.video-container {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+
+  /* desktop: subtle gradient behind the portrait video */
+  @media (min-width: 768px) {
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 50%,
+      #1a0a3a 0%,
+      #06020f 100%
+    );
+  }
+}
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+
+  /* video is portrait — show it fully centered on wide screens */
+  @media (min-width: 768px) {
+    object-fit: unset;
+    inset: auto;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ─── play overlay ───────────────────────────────────────────── */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  animation: overlay-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  &:hover .play-circle {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+.play-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.play-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ring 1 */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: ring-expand 3s ease-out infinite;
+  }
+
+  &::after {
+    animation-delay: 1.5s;
+  }
+}
+
+.play-circle {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: breathe 3.5s ease-in-out infinite;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.play-icon-svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 4px; /* optical center for triangle */
+}
+
+.play-hint {
+  font-size: 0.5rem;
+  letter-spacing: 0.55em;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@keyframes ring-expand {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(2.6); opacity: 0;   }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1);    }
+  50%       { transform: scale(1.07); }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── skip button ────────────────────────────────────────────── */
+.skip-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.45);
+  color: $white;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.65);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* ─── CTA overlay (after video ends) ────────────────────────── */
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('/dinner-christian-motte/WhatsApp%20Image%202026-05-28%20at%209.55.13%20AM.jpeg');
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4.5rem;
+
+  @media (min-width: 768px) {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #06020f;
+    align-items: flex-end;
+    padding-bottom: 5rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.2) 60%,
+      transparent 100%
+    );
+  }
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+}
+
+.cta-event {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: $white-dim;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.cta-title {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 900;
+  color: $white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+.cta-date {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 0.75rem;
+}
+
+.dcm-cta-btn {
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  background: $white;
+  color: $dcm-deep;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: inherit;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    background: #f0e8ff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ─── form container ─────────────────────────────────────────── */
+.form-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 3rem;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    #2d1060 0%,
+    $dcm-deepest 55%,
+    $dcm-darkest 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  @include ripple-bg;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109, 40, 217, 0.16) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+/* ─── form header ────────────────────────────────────────────── */
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-brand {
+  font-size: 0.65rem;
+  letter-spacing: 0.45em;
+  color: $white-dim;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.form-title {
+  font-size: clamp(2.4rem, 9vw, 4.5rem);
+  font-weight: 900;
+  color: $white;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+  text-shadow: 0 0 40px rgba(157, 94, 246, 0.5);
+}
+
+.form-event {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: $white-dim;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.form-date {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: $dcm-glow;
+  text-transform: uppercase;
+}
+
+/* ─── form ───────────────────────────────────────────────────── */
+.dcm-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── input group ────────────────────────────────────────────── */
+.dcm-input-group {
+  position: relative;
+  margin-bottom: 1.1rem;
+}
+
+/* ─── input ──────────────────────────────────────────────────── */
+.dcm-input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: $white-faint;
+  border: 1px solid $dcm-border;
+  border-radius: 8px;
+  color: $white;
+  font-size: 16px;
+  font-family: inherit;
+  letter-spacing: 0.03em;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+
+  &::placeholder {
+    color: $white-dim;
+  }
+
+  &:focus {
+    border-color: $dcm-glow;
+    background: rgba(109, 40, 217, 0.15);
+    box-shadow: 0 0 0 3px rgba(157, 94, 246, 0.2), 0 0 16px rgba(157, 94, 246, 0.1);
+  }
+
+  &.error {
+    border-color: rgba(248, 113, 113, 0.7);
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+  }
+}
+
+/* ─── date field ─────────────────────────────────────────────── */
+.date-field {
+  input[type='date'] {
+    &:not(.has-value) {
+      color: transparent;
+    }
+
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+
+  .date-placeholder {
+    position: absolute;
+    top: 0.85rem;
+    left: 1rem;
+    color: $white-dim;
+    font-size: 16px;
+    font-family: inherit;
+    pointer-events: none;
+  }
+}
+
+/* ─── CTA button ─────────────────────────────────────────────── */
+.dcm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  border-radius: 9999px;
+  background: $white;
+  color: $dcm-deep;
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: inherit;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(157, 94, 246, 0.35);
+
+  &:hover:not(:disabled) {
+    background: #f0e8ff;
+    box-shadow: 0 6px 32px rgba(157, 94, 246, 0.55);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* ─── completed screen ───────────────────────────────────────── */
+.dcm-completed {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 30%,
+    #2d1060 0%,
+    $dcm-deepest 60%,
+    $dcm-darkest 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  @include ripple-bg;
+}
+
+.completed-content {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dcm-badge {
+  display: inline-block;
+  padding: 0.3rem 1.2rem;
+  border: 1px solid $dcm-border;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: $dcm-glow;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.completed-date {
+  font-size: 3rem;
+  font-weight: 900;
+  color: $dcm-glow;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 0 30px rgba(157, 94, 246, 0.6);
+}
+
+.completed-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: $white;
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+
+  span {
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+}
+
+.completed-divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $dcm-glow, transparent);
+  margin: 0 auto 1.25rem;
+}
+
+.completed-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.38em;
+  color: $white-dim;
+  text-transform: uppercase;
+}
+
+/* ─── spinners ───────────────────────────────────────────────── */
+.native-loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid $dcm-deep;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

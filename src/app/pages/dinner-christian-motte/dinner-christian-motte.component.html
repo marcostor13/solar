@@ -1,0 +1,155 @@
+@if(completed()) {
+<div class="dcm-completed">
+  <div class="completed-content">
+    <div class="dcm-badge">DINNER CHRISTIAN MOTTE</div>
+    <p class="completed-date">06 · 05</p>
+    <p class="completed-text">
+      Ya estás en la lista<br />
+      <span>DINNER CHRISTIAN MOTTE</span><br />
+      miércoles 6 de mayo.
+    </p>
+    <div class="completed-divider"></div>
+    <p class="completed-sub">Te esperamos en Garbo</p>
+  </div>
+</div>
+} @else {
+
+@if(step() === 1){
+<div class="video-container">
+  <video
+    #videoEl
+    class="bg-video"
+    muted
+    playsinline
+    preload="auto"
+    (ended)="onVideoEnded()"
+    (error)="onVideoError()"
+  >
+    <source src="/dinner-christian-motte/Garbo%2006.05%20(1).MOV" type="video/mp4">
+    <source src="/dinner-christian-motte/Garbo%2006.05%20(1).MOV" type="video/quicktime">
+  </video>
+
+  @if(!videoStarted()) {
+  <div class="play-overlay" (click)="startVideo()">
+    <p class="play-label">DINNER CHRISTIAN MOTTE</p>
+    <div class="play-ring">
+      <div class="play-circle">
+        <svg class="play-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="7,4 21,12 7,20" fill="rgba(255,255,255,0.92)"/>
+        </svg>
+      </div>
+    </div>
+    <p class="play-hint">TOCA PARA VER</p>
+  </div>
+  }
+
+  @if(videoStarted() && !videoEnded()) {
+  <button type="button" class="skip-btn" (click)="skipVideo()">SALTAR</button>
+  }
+
+  @if(videoEnded()) {
+  <div class="cta-overlay">
+    <div class="cta-content">
+      <p class="cta-event">DINNER</p>
+      <p class="cta-title">CHRISTIAN MOTTE</p>
+      <p class="cta-date">06 · 05</p>
+      <button type="button" class="dcm-cta-btn" (click)="step.set(2)">
+        REGÍSTRATE AQUÍ
+      </button>
+    </div>
+  </div>
+  }
+</div>
+}
+
+@if(step() === 2){
+<div class="form-container">
+
+  <div class="form-header">
+    <p class="form-brand">GARBO</p>
+    <h1 class="form-title">CHRISTIAN<br>MOTTE</h1>
+    <p class="form-event">DINNER</p>
+    <p class="form-date">06 · 05</p>
+  </div>
+
+  <form [formGroup]="form" class="dcm-form">
+
+    <div class="dcm-input-group">
+      <input
+        class="dcm-input"
+        placeholder="Nombre completo"
+        type="text"
+        formControlName="name"
+        [class.error]="name?.invalid && name?.touched"
+      />
+    </div>
+
+    <div class="dcm-input-group">
+      <input
+        class="dcm-input"
+        placeholder="Dirección"
+        type="text"
+        formControlName="address"
+        [class.error]="address?.invalid && address?.touched"
+      />
+    </div>
+
+    <div class="dcm-input-group">
+      <input
+        class="dcm-input"
+        placeholder="Teléfono"
+        type="tel"
+        formControlName="phone"
+        [class.error]="phone?.invalid && phone?.touched"
+      />
+    </div>
+
+    <div class="dcm-input-group">
+      <input
+        class="dcm-input"
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        [class.error]="email?.invalid && email?.touched"
+      />
+    </div>
+
+    <div class="dcm-input-group date-field">
+      <input
+        class="dcm-input"
+        type="date"
+        formControlName="birthday"
+        [class.has-value]="birthday?.value"
+        [class.error]="birthday?.invalid && birthday?.touched"
+      />
+      @if (!birthday?.value) {
+        <span class="date-placeholder">Cumpleaños</span>
+      }
+    </div>
+
+    <div class="dcm-input-group">
+      <input
+        class="dcm-input"
+        placeholder="Invitado por"
+        type="text"
+        formControlName="favoriteDrink"
+      />
+    </div>
+
+    <button
+      (click)="saveSolar()"
+      type="button"
+      class="dcm-btn"
+      [disabled]="isLoading() || form.invalid"
+    >
+      @if(isLoading()) {
+        <span class="native-loader"></span>
+      }
+      <span>{{ isLoading() ? 'REGISTRANDO...' : 'REGÍSTRATE AQUÍ' }}</span>
+    </button>
+
+  </form>
+</div>
+}
+
+}
