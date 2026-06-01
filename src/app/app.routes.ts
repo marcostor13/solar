@@ -25,6 +25,7 @@ import { PayasoLocoPageComponent } from './pages/payaso-loco/payaso-loco.page';
 import { LilaTakeoverComponent } from './pages/lila-takeover/lila-takeover.component';
 import { LilaTakeoverDashboardComponent } from './pages/lila-takeover-dashboard/lila-takeover-dashboard.component';
 import { DinnerChristianMotteComponent } from './pages/dinner-christian-motte/dinner-christian-motte.component';
+import { ChivasRegalDashboardComponent } from './pages/chivas-regal-dashboard/chivas-regal-dashboard.component';
 export const routes: Routes = [
 
     {
@@ -34,6 +35,10 @@ export const routes: Routes = [
     {
         path: 'chivas-regal/:promo',
         component: DinnerChristianMotteComponent
+    },
+    {
+        path: 'chivas-regal-dashboard',
+        component: ChivasRegalDashboardComponent
     },
     {
         path: 'lila-takeover',

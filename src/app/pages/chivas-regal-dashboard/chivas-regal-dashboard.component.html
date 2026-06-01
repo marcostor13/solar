@@ -1,0 +1,153 @@
+@if (!authenticated()) {
+  <div class="auth-screen">
+    <div class="auth-card">
+      <img class="auth-logo" src="/dinner-christian-motte/logochivas.png" alt="Chivas Regal 18" />
+      <div class="auth-brand">GARBO DINNER</div>
+      <h2 class="auth-title">Dashboard</h2>
+      <p class="auth-subtitle">Ingresa la clave de administrador</p>
+      <input
+        class="auth-input"
+        type="password"
+        placeholder="Clave"
+        [ngModel]="adminKey()" (ngModelChange)="adminKey.set($event)"
+        (keyup.enter)="load()"
+        autocomplete="off"
+      />
+      @if (error()) {
+        <p class="auth-error">{{ error() }}</p>
+      }
+      <button
+        class="auth-btn"
+        (click)="load()"
+        [disabled]="isLoading() || !adminKey()"
+      >
+        @if (isLoading()) {
+          <span class="btn-spinner"></span>
+        }
+        <span>{{ isLoading() ? 'CARGANDO...' : 'ENTRAR' }}</span>
+      </button>
+    </div>
+  </div>
+} @else {
+  <div class="dashboard">
+
+    <header class="dash-header">
+      <div class="dash-header-left">
+        <img class="dash-logo" src="/dinner-christian-motte/logochivas.png" alt="Chivas Regal 18" />
+        <div class="dash-brand">CHIVAS REGAL 18</div>
+        <span class="dash-label">Garbo Dinner — Registros</span>
+      </div>
+      <div class="dash-stats">
+        <div class="stat-card">
+          <span class="stat-number">{{ registrations().length }}</span>
+          <span class="stat-label">Total registros</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">{{ filtered().length }}</span>
+          <span class="stat-label">Mostrando</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dash-toolbar">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Buscar por nombre, email, teléfono..."
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+      />
+      <select
+        class="ref-select"
+        [ngModel]="filterReferido()"
+        (ngModelChange)="filterReferido.set($event)"
+      >
+        <option value="">Todos — Referido por</option>
+        @for (opt of referidoOptions(); track opt) {
+          <option [value]="opt">{{ opt }}</option>
+        }
+      </select>
+      <button class="export-btn" (click)="exportExcel()" [disabled]="filtered().length === 0">
+        Exportar Excel
+      </button>
+    </div>
+
+    @if (filtered().length === 0) {
+      <div class="empty-state">
+        <p>No se encontraron registros{{ searchTerm() ? ' para "' + searchTerm() + '"' : '' }}.</p>
+      </div>
+    } @else {
+
+      <!-- Desktop: tabla -->
+      <div class="table-wrapper">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Cumpleaños</th>
+              <th>Referido por</th>
+              <th>Registrado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of filtered(); track r._id; let i = $index) {
+              <tr>
+                <td class="col-idx">{{ i + 1 }}</td>
+                <td class="col-name">{{ r.name }}</td>
+                <td class="col-email">{{ r.email }}</td>
+                <td class="col-phone">{{ r.phone }}</td>
+                <td class="col-address">{{ r.address }}</td>
+                <td class="col-date">{{ formatDate(r.dateOfBirth) }}</td>
+                <td class="col-ref">{{ r.favoriteDrink || '—' }}</td>
+                <td class="col-created">{{ formatDateTime(r.createdAt) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile: cards -->
+      <div class="card-list">
+        @for (r of filtered(); track r._id; let i = $index) {
+          <div class="reg-card">
+            <div class="card-top">
+              <span class="card-idx">{{ i + 1 }}</span>
+              <span class="card-name">{{ r.name }}</span>
+            </div>
+            <a class="card-email" href="mailto:{{ r.email }}">{{ r.email }}</a>
+            <div class="card-fields">
+              <div class="card-field">
+                <span class="field-label">Teléfono</span>
+                <span class="field-value">{{ r.phone }}</span>
+              </div>
+              <div class="card-field">
+                <span class="field-label">Dirección</span>
+                <span class="field-value">{{ r.address }}</span>
+              </div>
+              <div class="card-field">
+                <span class="field-label">Cumpleaños</span>
+                <span class="field-value">{{ formatDate(r.dateOfBirth) }}</span>
+              </div>
+              @if (r.favoriteDrink) {
+                <div class="card-field">
+                  <span class="field-label">Referido por</span>
+                  <span class="field-value field-ref">{{ r.favoriteDrink }}</span>
+                </div>
+              }
+              <div class="card-field">
+                <span class="field-label">Registrado</span>
+                <span class="field-value field-date">{{ formatDateTime(r.createdAt) }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    }
+
+  </div>
+}
