@@ -34,6 +34,7 @@ const PROMOTERS: Record<string, string> = {
   PM25: 'Paola Mendiola',
   CR26: 'Carmen Rivera-Schreiber',
   JU27: 'Julio',
+  HA28: 'Hans',
 };
 
 @Component({
