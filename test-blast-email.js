@@ -8,8 +8,8 @@ fs.readFileSync(path.join(__dirname, '.env'), 'utf8').split('\n').forEach(line =
   if (k && v.length) env[k.trim()] = v.join('=').trim();
 });
 
-const USER_EMAIL    = 'reservas@casagarbo.pe';
-const PASSWORD_EMAIL = 'Reservas2024CasaGarbo';
+const USER_EMAIL     = env.USER_EMAIL;
+const PASSWORD_EMAIL = env.PASSWORD_EMAIL;
 
 const TEST_RECIPIENTS = [
   { name: 'Nexos BTL',     email: 'nexosbtl@gmail.com' },

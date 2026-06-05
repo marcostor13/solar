@@ -1,12 +1,21 @@
 const nodemailer  = require('nodemailer');
 const { MongoClient } = require('mongodb');
 const dns = require('dns');
+const fs   = require('fs');
+const path = require('path');
 dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 
-const MONGO_URI    = 'mongodb+srv://marcostorresalarcon_db_user:pNI6qHRwrQV5kCfs@marcostorresalarcon.jqumim0.mongodb.net/solar-registration?retryWrites=true&w=majority';
-const USER_EMAIL   = 'reservas@casagarbo.pe';
-const PASS_EMAIL   = 'Reservas2024CasaGarbo';
+// Credenciales desde .env (gitignored) — NO hardcodear secretos en este archivo
+const envRaw = {};
+fs.readFileSync(path.join(__dirname, '.env'), 'utf8').split('\n').forEach(line => {
+  const [k, ...v] = line.split('=');
+  if (k && v.length) envRaw[k.trim()] = v.join('=').trim();
+});
+
+const MONGO_URI    = envRaw.MONGO_URI;
+const USER_EMAIL   = envRaw.USER_EMAIL;
+const PASS_EMAIL   = envRaw.PASSWORD_EMAIL;
 const logoUrl      = 'https://graffiteria.gruposolar.pe/dinner-christian-motte/logochivas.png';
 const imageUrl     = 'https://graffiteria.gruposolar.pe/dinner-christian-motte/flyer.jpeg';
 
