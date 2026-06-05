@@ -29,7 +29,16 @@
       "Bash(node test-blast-email.js)",
       "PowerShell(Resolve-DnsName *)",
       "PowerShell(Copy-Item *)",
-      "Bash(node -e \"require\\('resend'\\)\")"
+      "Bash(node -e \"require\\('resend'\\)\")",
+      "Bash(node *)",
+      "Bash(nslookup -type=TXT casagarbo.pe 8.8.8.8)",
+      "Bash(nslookup -type=TXT _dmarc.casagarbo.pe 8.8.8.8)",
+      "Bash(nslookup -type=MX casagarbo.pe 8.8.8.8)",
+      "Bash(nslookup -type=TXT _amazonses.casagarbo.pe 8.8.8.8)",
+      "Bash(nslookup mail.casagarbo.pe 8.8.8.8)",
+      "Bash(powershell -Command ' *)",
+      "Bash(powershell *)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

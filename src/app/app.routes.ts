@@ -24,18 +24,19 @@ import { Garage2Component } from './pages/garage2/garage2.component';
 import { PayasoLocoPageComponent } from './pages/payaso-loco/payaso-loco.page';
 import { LilaTakeoverComponent } from './pages/lila-takeover/lila-takeover.component';
 import { LilaTakeoverDashboardComponent } from './pages/lila-takeover-dashboard/lila-takeover-dashboard.component';
-import { DinnerChristianMotteComponent } from './pages/dinner-christian-motte/dinner-christian-motte.component';
+// import { DinnerChristianMotteComponent } from './pages/dinner-christian-motte/dinner-christian-motte.component'; // ruta desactivada — evento finalizado
 import { ChivasRegalDashboardComponent } from './pages/chivas-regal-dashboard/chivas-regal-dashboard.component';
 export const routes: Routes = [
 
-    {
-        path: 'chivas-regal',
-        component: DinnerChristianMotteComponent
-    },
-    {
-        path: 'chivas-regal/:promo',
-        component: DinnerChristianMotteComponent
-    },
+    // Ruta de registro desactivada (evento finalizado) — cae en NotFoundComponent vía '**'
+    // {
+    //     path: 'chivas-regal',
+    //     component: DinnerChristianMotteComponent
+    // },
+    // {
+    //     path: 'chivas-regal/:promo',
+    //     component: DinnerChristianMotteComponent
+    // },
     {
         path: 'chivas-regal-dashboard',
         component: ChivasRegalDashboardComponent
