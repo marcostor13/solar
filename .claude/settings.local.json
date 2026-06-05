@@ -25,7 +25,11 @@
       "Bash(ffprobe *)",
       "Bash(ffmpeg -i C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/garbo.mp4 -vf scale=720:1280 -c:v libx264 -preset slow -crf 28 -c:a aac -b:a 96k -movflags +faststart C:/Marcos/Proyectos/Solar/solar/public/dinner-christian-motte/garbo_opt.mp4 -y)",
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(s['codec_type'],s.get\\('width',''\\),s.get\\('height',''\\),s.get\\('bit_rate',''\\),s.get\\('duration',''\\)\\) for s in d['streams']]\")",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "Bash(node test-blast-email.js)",
+      "PowerShell(Resolve-DnsName *)",
+      "PowerShell(Copy-Item *)",
+      "Bash(node -e \"require\\('resend'\\)\")"
     ]
   }
 }
