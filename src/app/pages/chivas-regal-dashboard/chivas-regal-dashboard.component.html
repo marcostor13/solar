@@ -70,7 +70,32 @@
       <button class="export-btn" (click)="exportExcel()" [disabled]="filtered().length === 0">
         Exportar Excel
       </button>
+      <button
+        class="blast-btn"
+        (click)="sendBlastEmail()"
+        [disabled]="isSendingBlast() || registrations().length === 0"
+      >
+        @if (isSendingBlast()) {
+          <span class="btn-spinner"></span>
+          <span>Enviando...</span>
+        } @else {
+          <span>Enviar correos ({{ registrations().length }})</span>
+        }
+      </button>
     </div>
+
+    @if (blastResult()) {
+      <div class="blast-result blast-result--ok">
+        ✓ Correos enviados: {{ blastResult()!.sent }}
+        @if (blastResult()!.failed > 0) {
+          · Fallidos: {{ blastResult()!.failed }}
+        }
+        · Total: {{ blastResult()!.total }}
+      </div>
+    }
+    @if (blastError()) {
+      <div class="blast-result blast-result--err">{{ blastError() }}</div>
+    }
 
     @if (filtered().length === 0) {
       <div class="empty-state">

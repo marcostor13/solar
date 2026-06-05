@@ -20,4 +20,11 @@ export class SolarService {
   getRegistrations(local: string, key: string): Observable<IRegistration[]> {
     return this.http.get<IRegistration[]>(`${this.apiUrl}?local=${local}&key=${encodeURIComponent(key)}`);
   }
+
+  sendBlastEmail(local: string, key: string): Observable<{ sent: number; failed: number; total: number }> {
+    return this.http.post<{ sent: number; failed: number; total: number }>(
+      this.apiUrl,
+      { action: 'blast-email', local, key }
+    );
+  }
 }

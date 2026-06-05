@@ -22,6 +22,10 @@ export class ChivasRegalDashboardComponent {
   filterReferido = signal('');
   authenticated = signal(false);
 
+  isSendingBlast = signal(false);
+  blastResult = signal<{ sent: number; failed: number; total: number } | null>(null);
+  blastError = signal('');
+
   referidoOptions = computed(() => {
     const values = this.registrations()
       .map((r) => r.favoriteDrink?.trim())
@@ -84,6 +88,30 @@ export class ChivasRegalDashboardComponent {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+    });
+  }
+
+  sendBlastEmail() {
+    const total = this.registrations().length;
+    if (!total) return;
+    const confirmed = window.confirm(
+      `¿Enviar el correo de invitación a los ${total} invitados registrados?\n\nEsta acción no se puede deshacer.`
+    );
+    if (!confirmed) return;
+
+    this.isSendingBlast.set(true);
+    this.blastResult.set(null);
+    this.blastError.set('');
+
+    this.solarService.sendBlastEmail('chivas-regal', this.adminKey()).subscribe({
+      next: (res) => {
+        this.blastResult.set(res);
+        this.isSendingBlast.set(false);
+      },
+      error: (err) => {
+        this.blastError.set(err.status === 401 ? 'No autorizado.' : 'Error al enviar correos.');
+        this.isSendingBlast.set(false);
+      },
     });
   }
 
